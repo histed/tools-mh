@@ -1,4 +1,4 @@
-function dat = csvread_textornum(filename, leaveUnknownAsText, skipFirstLines)
+function dat = csvread_textornum(filename, leaveUnknownAsText)
 %CSVREAD_TEXTORNUM (ps-utils): read CSV file, converting numeric fields to double
 %  DAT = CSVREAD_TEXTORNUM(FILENAME)
 %  DAT is a structure with fields corresponding to the columns of the CSV
@@ -21,7 +21,6 @@ function dat = csvread_textornum(filename, leaveUnknownAsText, skipFirstLines)
 %$Id: csvread_textornum.m 253 2008-06-06 18:38:39Z histed $
 
 if nargin < 2, leaveUnknownAsText = false; end
-if nargin < 3, skipFirstLines = 0; end
 
 %%% check mem cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cacheKey = {mfilename,filename,leaveUnknownAsText}; 
@@ -42,11 +41,6 @@ if nargin < 2, leaveUnknownAsText=false; end
 
 % first get header
 fid = fopen(filename);
-if skipFirstLines > 0
-    for iS=1:skipFirstLines
-        skipped = fgetl(fid);
-    end
-end
 headertxt = fgetl(fid);
 colnames = deblank_bothsides(strread(headertxt, '%q', 'delimiter', ','));
 ncols = length(colnames);
@@ -109,14 +103,6 @@ for iCol = 1:ncols
     end
 end
 
-% make sure colnames unique
-nC = length(colnames);
-for iC = 2:nC
-    tC = colnames{iC};
-    if any(strcmp(colnames(1:iC-1), tC))
-        colnames{iC} = strcat(tC, sprintf('%03d', iC));
-    end
-end
 
 
 % convert to a structure

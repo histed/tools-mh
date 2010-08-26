@@ -9,7 +9,11 @@ function outName = hostname
 persistent cached_name
 if ~isempty(cached_name), outName=cached_name; return; end
 
-[retval,tName] = system('hostname');
+if ismac
+    [retval,tName] = system('scutil --get ComputerName');
+else
+    [retval,tName] = system('hostname');
+end
 
 % some error checks
 assert(retval == 0, 'Error running hostname');

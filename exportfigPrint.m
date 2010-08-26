@@ -30,6 +30,7 @@ user_defaults = { 'Size', 7.*[1 0.75] ... % vector; [width height]
                   'Renderer', '', ...
                   'BoundingBox', [], ...
                   'CMYKColor', false, ...
+                  'PrintUI', true, ...
                 };
 % note default options give you an 800x600 figure that is supposed
 % to be 4x3 inches in size.  
@@ -66,6 +67,11 @@ if strcmp(uopts.BoundingBox, 'loose')
 elseif strcmp(uopts.BoundingBox, 'tight')    
     pOpts = cat(2, pOpts, '-tight');    
 end
+if ~uopts.PrintUI
+    pOpts = cat(2, pOpts, '-noui');
+end
+
+  
 
 %%Deal with GS bug on paths > 120chars
 if length(fileName) > 120
