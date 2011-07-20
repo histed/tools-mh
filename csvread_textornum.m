@@ -1,4 +1,4 @@
-function dat = csvread_textornum(filename, leaveUnknownAsText)
+function dat = csvread_textornum(filename, leaveUnknownAsText, ignoreStrs)
 %CSVREAD_TEXTORNUM (ps-utils): read CSV file, converting numeric fields to double
 %  DAT = CSVREAD_TEXTORNUM(FILENAME)
 %  DAT is a structure with fields corresponding to the columns of the CSV
@@ -20,7 +20,8 @@ function dat = csvread_textornum(filename, leaveUnknownAsText)
 % 
 %$Id: csvread_textornum.m 253 2008-06-06 18:38:39Z histed $
 
-if nargin < 2, leaveUnknownAsText = false; end
+if nargin < 2 || isempty(leaveUnknownAsText), leaveUnknownAsText = false; end
+if nargin < 3, ignoreStrs =''; end
 
 %%% check mem cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cacheKey = {mfilename,filename,leaveUnknownAsText}; 
@@ -78,6 +79,12 @@ end
 fieldVals = {};
 for iCol = 1:ncols
     tFieldVal = d{iCol};
+    if ~leaveUnknownAsText
+        ignoreIx = ismember(tFieldVal, ignoreStrs);
+        if any(ignoreIx)
+            [tFieldVal{ignoreIx}] = deal('');
+        end
+    end
     emptyIx = cellfun('isempty', tFieldVal);
     numField = str2double(tFieldVal);
     
