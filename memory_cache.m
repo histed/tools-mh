@@ -33,17 +33,17 @@ function [outData, outKey] = memory_cache(functionStr, ...
 %
 %   Example:
 %   --------    
-% $$$ %%% check mem cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% $$$ cacheKey = {fileName}; outdatedKey = {crunched_dir(dataFileName)}; 
-% $$$ cDat = memory_cache('get', cacheKey, 'allowMissing', outdatedKey);
-% $$$ if ~isempty(cDat), [v1, v2] = deal(cDat{:}); return; end
-% $$$ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% $$$ 
-% $$$ your code here
-% $$$ 
-% $$$ %%% store data in cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% $$$ memory_cache('set', {v1, v2}, cacheKey,outdatedKey,'allowDups');
-% $$$ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+%   % check mem cache
+%   cacheKey = {fileName}; outdatedKey = {crunched_dir(dataFileName)}; 
+%   cDat = memory_cache('get', cacheKey, 'allowMissing', outdatedKey);
+%   if ~isempty(cDat), [v1, v2] = deal(cDat{:}); return; end
+% 
+%   % your code here
+% 
+%   % store data
+%   memory_cache('set', {v1, v2}, cacheKey,outdatedKey,'allowDups');
+% 
 %   
 %  MH - http://github.com/histed/tools-mh
 

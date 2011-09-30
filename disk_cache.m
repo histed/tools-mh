@@ -10,6 +10,8 @@ function [outData, outKey, varargout] = disk_cache(functionStr, varargin)
 %                                  outdatedKey)
 %   [cachedData,cachedOutdatedKey] = DISK_CACHE('get', cacheId, ...)
 %
+%   DISK_CACHE(..., 'cacheDir', dir)   - sets the cache directory on disk
+%
 %   * Manipulate cache:    
 %   DISK_CACHE('clear')
 %   DISK_CACHE('clear', dataClass)  % Clears only data in this class
@@ -44,17 +46,17 @@ function [outData, outKey, varargout] = disk_cache(functionStr, varargin)
 %
 %   Example:
 %
-% $$$ %%% check disk cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% $$$ cClass = 'typeofdata'; cacheKey = {inputVar1}; outdatedKey = {}; 
-% $$$ cDat = disk_cache('get', cacheKey, 'allowMissing', cClass, outdatedKey);
-% $$$ if ~isempty(cDat), [v1, v2] = deal(cDat{:}); return; end
-% $$$ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% $$$ 
-% $$$ your code here
-% $$$ 
-% $$$ %%% store data in cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% $$$ disk_cache('set', {v1, v2}, cacheKey,outdatedKey,'allowDups',cClass);
-% $$$ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   % check disk cache 
+%   cClass = 'typeofdata'; cacheKey = {inputVar1}; outdatedKey = {}; 
+%   cDat = disk_cache('get', cacheKey, 'allowMissing', cClass, outdatedKey);
+%   if ~isempty(cDat), [v1, v2] = deal(cDat{:}); return; end
+% 
+% 
+%   % your code here
+%
+%   % store data in cache 
+%   disk_cache('set', {v1, v2}, cacheKey, outdatedKey, 'allowDups', cClass);
+% 
 
 % dataClass is used only for user classification purposes.  It is not used
 % to find index entries at all.
@@ -64,26 +66,36 @@ if nargin < 1 || ~ischar(functionStr)
 end
 
 % cache dir name
-dirs = directories;
-cacheDir = dirs.diskcache;
+%dirs = directories;
+%cacheDir = dirs.diskcache;
+% find cachedir
+nArgs = nargin;  % need to be able to change this
+cdN = find(strcmp(varargin, 'cacheDir'));
+if ~isempty(cdN)
+    cacheDir = varargin{cdN+1};
+    varargin = varargin(setdiff(1:(nArgs-1), [cdN cdN+1])); %1st param not var
+    nArgs = nArgs-2;
+end
+
 
 delIxKey = repmat(NaN,1,16);  % hashLen for MD5 is 16bytes 
 
 switch functionStr
     case 'set'
         % process args
-        if nargin <= 3, error('Must specify data, cacheId, outdatedKey'); end
+        if nArgs <= 3, error('Must specify data, cacheId, outdatedKey'); end
+
         inData = varargin{1};
         inFullId = varargin{2};
         inOutdatedKey = hash_recurse(varargin{3});        
 
         allowDups = false; % default
-        if nargin > 4, allowDups = strcmpi(varargin{4}, 'allowDups'); end
+        if nArgs > 4, allowDups = strcmpi(varargin{4}, 'allowDups'); end
 
         dataClass = 'unspecifiedClass'; 
-        if nargin > 5, dataClass = varargin{5}; end
+        if nArgs > 5, dataClass = varargin{5}; end
 
-        if nargin > 6, error('Too many arguments'); end
+        if nArgs > 6, error('Too many arguments'); end
         assert(isstr(dataClass));
 
         inId = hash_recurse(inFullId);
@@ -163,17 +175,17 @@ switch functionStr
         inId = hash_recurse(varargin{1});
         hashLen = length(inId);
         allowMissing = false; % default
-        if nargin > 2, 
+        if nArgs > 2, 
             allowMissing = strcmpi(varargin{2}, 'allowMissing');
         end
 
         dataClass = ''; % default
-        if nargin > 3, dataClass = varargin{3}; end
+        if nArgs > 3, dataClass = varargin{3}; end
 
         outdatedKey = []; % default
-        if nargin > 4, outdatedKey = hash_recurse(varargin{4}); end
+        if nArgs > 4, outdatedKey = hash_recurse(varargin{4}); end
 
-        if nargin > 5, error('Too many inputs'); end
+        if nArgs > 5, error('Too many inputs'); end
         
         %%%%%%%%%%%%%%%%
 
@@ -216,10 +228,15 @@ switch functionStr
         if nargout > 1, outKey = diskOutdatedKeys(no,1:hashLen); end
         
     case 'clear'
-        dataClass = ''; % default, means delete all
-        if nargin == 2, dataClass = varargin{1}; end
-        if nargin > 2, error('Too many arguments to ''clear'''); end
 
+      
+      dataClass = ''; % default, means delete all
+        if nArgs == 2, dataClass = varargin{1}; end
+        if nArgs > 2, error('Too many arguments to ''clear'''); end
+
+
+        
+        
         if isempty(dataClass)
             deleteMask = '_PSCACHE_data-*.mat';            
         else
@@ -263,8 +280,8 @@ switch functionStr
         disp('Success.');
     case 'list'
         dataClass = ''; % default: list all
-        if nargin == 2, dataClass = varargin{1}; end
-        if nargin > 2, error('Too many arguments to ''list'''); end
+        if nArgs == 2, dataClass = varargin{1}; end
+        if nArgs > 2, error('Too many arguments to ''list'''); end
         
         % get data from index
         [diskIds, diskOutdatedKeys, diskDataClasses] ...

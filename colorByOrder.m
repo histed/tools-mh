@@ -1,6 +1,6 @@
-function [tColor,nearestCmapNum] = next_color_by_order(colorNum, axesH, colorOrder)
-%NEXT_COLOR_BY_ORDER (ps-utils): get next color from axes ColorOrder
-%   [tColor,nearestCmapNum] = NEXT_COLOR_BY_ORDER(colorNum, axesH)
+function [tColor,nearestCmapNum] = colorByOrder(colorNum, axesH, colorOrder)
+%COLORBYORDER (ps-utils): get next color from axes ColorOrder
+%   [tColor,nearestCmapNum] = colorByOrder(colorNum, axesH)
 %
 %   Handles cycling through colors properly.
 %
