@@ -2,7 +2,7 @@ function fixed_name = fontname_fixed
 %FONTNAME_FIXED (ps-utils): get the name of a fixed-width font on this system
 %  NAME = FONTNAME_FIXED
 %
-%$Id: fontname_fixed.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 l = listfonts;
 

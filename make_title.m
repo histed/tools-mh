@@ -3,7 +3,7 @@ function titlestr = make_title (extraText, mName)
 %
 %  (note: simplified version of MAKE_PLOT_TITLE (posit)
 %
-% $Id: make_title.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 if nargin < 2 || isempty(mName)
     mName = caller_mfilename(1, true);

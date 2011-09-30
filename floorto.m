@@ -5,6 +5,6 @@ function X = floorto(Xin,n)
 %
 %   See also CHOP, ROUNDTO, CEILTO
 %
-%$Id: floorto.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 X = floor(Xin .* 10.^(n)) ./ 10.^(n);

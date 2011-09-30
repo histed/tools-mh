@@ -8,7 +8,7 @@ function h = scatter3_varsize(x, y, z, scalesize, extraparms)
 %
 %   See also: SCATTER3, SCATTER_VARSIZE
 %
-%$Id: scatter3_varsize.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 4 || isempty(scalesize), scalesize = 3; end
 if nargin < 5, extraparms = ''; end

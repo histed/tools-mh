@@ -4,7 +4,7 @@ function outPath = fullfileMH(varargin)
 %   Windows MATLAB understands '/' as a filesep, and sprintf gets confused
 %   by '\', so use '/'
 %
-%$Id: fullfileMH.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % first strip trailing slashes
 varargin = regexprep(varargin, '(.*)/$', '$1');

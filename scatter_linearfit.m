@@ -10,7 +10,7 @@ function [hand, b0, b1, r2, pval] = scatter_linearfit (xdata, ydata, robust, ...
 %       orthogonal regression uses principal components, and bartlett's
 %       test to compute pvalues
 % 
-%$Id: scatter_linearfit.m 253 2008-06-06 18:38:39Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 3 || isempty(robust), robust = 'leastsq'; end
 if nargin < 4 || isempty(plot_params), plot_params = {'k'}; end

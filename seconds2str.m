@@ -8,7 +8,7 @@ function outStr = seconds2str(inSec, formatStr, stripEndZeros)
 %
 %   See also: NUM2STR_METRIC, DATE, CLOCK, ETIME
 %
-%$Id: seconds2str.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2 || isempty(formatStr), formatStr = '%d%1s'; end
 if nargin < 3, stripEndZeros = false; end

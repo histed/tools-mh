@@ -7,7 +7,7 @@ function optout = stropt_merge(optinMaster, optinSlave)
 %
 %   See also STROPT_GET, STROPT_SET, STROPT_NAMES, STROPT2STRUCT, STROPT_DEFAULTS
 %
-%$Id: stropt_merge.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 
 chkstropt(optinMaster);

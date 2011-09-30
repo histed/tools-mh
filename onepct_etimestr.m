@@ -3,7 +3,7 @@ function timeStr = onepct_etimestr(elapsedSeconds)
 %   timeStr = ONEPCT_ETIMESTR(elapsedSeconds)
 %   length(timeStr) <= 9 unless elapsedSeconds > 999 days.
 %
-%$Id: onepct_etimestr.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 [eDays,eHrs,eMins,eSecs] = secsplit(elapsedSeconds);
 if eDays > 100

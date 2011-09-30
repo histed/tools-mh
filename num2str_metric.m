@@ -4,7 +4,7 @@ function outStr = num2str_metric(inNum, numSigDigits, formatStr)
 %
 %   if inNum is between 10^3 and 10^6, M will be appended, etc.
 %
-%$Id: num2str_metric.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, numSigDigits = []; end
 if nargin < 3, formatStr = '%g'; end

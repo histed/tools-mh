@@ -12,7 +12,7 @@ function m = madm(x)
 %   converge to the 75th percentile of a distribution).  The corrected madm
 %   thus approximates the standard deviation of normal rv's.  
 %  
-%$Id: madm.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 %   Ref: Hampel, F. R., Ronchetti, E. M., Rousseeuw, P. J. and Stahel,
 %   W. A. (1986) Robust Statistics.  The Approach Based on Influence

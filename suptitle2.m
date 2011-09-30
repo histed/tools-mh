@@ -7,7 +7,7 @@ function textH = suptitle2(str)
 %   OuterPosition property.  It also does not have the side effect of forcing a
 %   screen redraw.
 %
-% $Id: suptitle2.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 suptitleNormHeight = 0.06;
 

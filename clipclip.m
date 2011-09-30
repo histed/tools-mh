@@ -9,7 +9,7 @@ function clipclip(figH, tSize, fFormat, boundingBox)
 %
 %   See also CLIPCLIPPIX
 %
-%$Id: clipclip.m 293 2008-07-10 02:45:19Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 1 || isempty(figH), figH = gcf; end
 if nargin < 2 || isempty(tSize), tSize = 6*[1 0.75]; end

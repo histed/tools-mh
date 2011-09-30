@@ -11,7 +11,7 @@ function matOut = cell2mat_padded (cellIn, dim, padVal)
 %   Right now this only handles cell vectors.
 %   This should be expanded to handle cell matrices like cell2mat does.
 %
-%$Id: cell2mat_padded.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, padVal = 0; end
 if nargin < 3, dim = 1; end

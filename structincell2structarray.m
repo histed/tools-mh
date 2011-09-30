@@ -7,7 +7,7 @@ function structArray = structincell2structarray(cellArrayIn)
 %   singleton numeric matrix), all fields of the struct for that cell are set
 %   to NaN's
 %
-%$Id: structincell2structarray.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % find 1x1 NaN numeric matrices in CellArrayIn 
 nonStructIx = ~cellfun('isclass', cellArrayIn, 'struct');

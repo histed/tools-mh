@@ -12,7 +12,7 @@ function [x,y,selectionType] = getAPoint(varargin)
 %   Leaves figure props (including UserData) same on return
 %
 %   See also: GETPTS (more complicated version of this)
-%$Id: getAPoint.m 332 2008-09-09 20:22:02Z aaron $
+%  MH - http://github.com/histed/tools-mh
 
 global GETAPOINT_DATA
 

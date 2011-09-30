@@ -13,7 +13,7 @@ function outfiles = complete_filenames (infiles, ...
 %     if there is no component and '' specified, 'ignoremissing' means ignore it
 %   outfiles: the list with path and extension completed.
 %
-%$Id: complete_filenames.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 [frows fcols] = size (infiles);
 outfiles = [];

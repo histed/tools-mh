@@ -4,6 +4,6 @@ function structOut = struct_sort(structIn)
 %
 %   See also ORDERFIELDS
 %
-%$Id: struct_sort.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 error('use ORDERFIELDS from matlab');

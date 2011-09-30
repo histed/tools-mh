@@ -10,7 +10,7 @@ function pH = vert_shade (xvals, colorvals, yminmax)
 %
 %   See also VERT_SHADE_GAUSS, VERT_LINES, SHADE, PATCH.
 %
-%$Id: vert_shade.m 350 2008-10-09 22:02:17Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 % get y range
 if nargin < 3 || isempty(yminmax)

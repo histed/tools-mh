@@ -6,7 +6,7 @@ function rv = rowvect (row_or_col_vect)
 %
 %   See also COLVECT, colon syntax e.g row_or_col_vect(:)
 %
-%$Id: rowvect.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 [rs cs] = size (row_or_col_vect);
 

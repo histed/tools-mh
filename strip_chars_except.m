@@ -4,7 +4,7 @@ function outstr = strip_chars_except (instr, chars_to_not_strip);
 % USAGE
 %  function outstr = strip_chars_except (instr, chars_to_not_strip);
 %
-% $Id: strip_chars_except.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 outstr = [];
 for i = 1:size(instr,1)

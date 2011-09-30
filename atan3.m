@@ -4,7 +4,7 @@ function theta = atan3(y,x)
 %
 %   See also ATAN2, ATAN
 %
-%$Id: atan3.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 theta = atan2(y,x);
 if theta < 0, theta = 2*pi + theta ; end
 

@@ -8,7 +8,7 @@ function D = euclid_dist(X1,X2)
 %    the x value and the second the y value.
 %    D has size (n,1).
 %
-%$Id: euclid_dist.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 [N1,d1] = size(X1);
 [N2,d2] = size(X2);

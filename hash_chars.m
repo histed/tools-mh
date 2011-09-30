@@ -3,7 +3,7 @@ function outVect = hash_chars(inStrs)
 %
 %   Based on the CRC hash function
 %
-%$Id: hash_chars.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % some profiling done but this could be faster...
 

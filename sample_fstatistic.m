@@ -6,7 +6,7 @@ function [F,p] = sample_fstatistic(X,group)
 %
 %   See also: ANOVA1
 %   
-%$Id: sample_fstatistic.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 [P,anovaTab,stats] = anova1(X,group,'off');
 F = anovaTab{2,5};

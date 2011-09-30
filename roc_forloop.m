@@ -3,7 +3,7 @@ function[area]=roc_forloop(pspikes,nspikes)
 %null choices or stimuli
 %
 % from MRC 090519
-%$Id$
+%  MH - http://github.com/histed/tools-mh
     
 cmax=150;
 rip=zeros(cmax+1,1);

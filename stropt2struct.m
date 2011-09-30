@@ -6,7 +6,7 @@ function opt_struct = stropt2struct (options_cell)
 %   NOT 
 %   stropt2struct ('name1', 1, 'name2', 2')
 %  
-%$Id: stropt2struct.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if (iscell(options_cell) && length(options_cell) == 1) 
     options_cell = options_cell{1};  % unwrap it and try it out

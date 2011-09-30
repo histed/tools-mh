@@ -3,7 +3,7 @@ function P = homogen_projtoplane(normalVect, centerVect)
 %   P = HOMOGEN_PROJTOPLANE(NORMALVECT, CENTERVECT)
 %
 %   Note that one needs to multiply through on the LEFT side: v*P
-%$Id: homogen_projtoplane.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % See Strang, 1993: "Intro to Linear Algebra"
 

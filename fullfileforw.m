@@ -6,7 +6,7 @@ function outPath = fullfileforw(varargin)
 %
 %   MH 081230 - copy from fullfileMH
 %
-%$Id: fullfileMH.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % first replace all backslashes with forward slashes on windows
 if ispc

@@ -8,7 +8,7 @@ function cell2csv(datName,cellArray,trennZeichen,quoteChar)
 % TRENNZEICHEN = seperating sign, normally:',' it's default
 % QUOTECHAR default '"', character to use to quote strings
 %
-% $Id: cell2csv.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 % based on code by Sylvain Fiedler, KA, 2004
 
 

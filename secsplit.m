@@ -4,7 +4,7 @@ function [days, hrs, mins, secs] = secsplit(elapsedSeconds)
 %   [days, hrs, mins, secs] = SECSPLIT(elapsedSeconds)
 %   each output argument is an integer except possibly seconds.
 %
-%$Id: secsplit.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 assert(elapsedSeconds >= 0, 'elapsedSeconds cannot be negative');
 

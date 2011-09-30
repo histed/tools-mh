@@ -8,7 +8,7 @@ function textHandles = labels_between_ticks(labelStrings, whichAxis, tickLocatio
 % 
 %   Only works for 2-d axes now.
 %
-%$Id: labels_between_ticks.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % check arguments
 if nargin < 3, tickLocations = []; end

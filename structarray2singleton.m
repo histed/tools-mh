@@ -6,7 +6,7 @@ function singleStruct = structarray2singleton(structArrIn)
 %       left out of the resulting big matrix (it will be smaller).  Fill with
 %       NaN's if you care about this.
 %
-%$Id: structarray2singleton.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 error('not tested well, verify')
 

@@ -3,7 +3,7 @@ function camera_apply(cam_struct, axisHandle)
 %
 %   CAMERA_APPLY(CAM_STRUCT, AXISHANDLE)
 %
-%$Id: camera_apply.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, axisHandle = gca; end
 

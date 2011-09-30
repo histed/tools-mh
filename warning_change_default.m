@@ -10,7 +10,7 @@ function outState = warning_change_default(desStateStr)
 %
 %   See also WARNING
 %
-%$Id: warning_change_default.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 w = warning;
 if nargout > 0, outState = w; end % support similar syntax to WARNING

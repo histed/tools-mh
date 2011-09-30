@@ -20,7 +20,7 @@ function output = smooth1(input, kernel, width, sigma, dim)
 %
 %   See also FILTER, CONV, CONVN, SMOOTH, KSDENSITY, SMOOTH2, SMOOTH3
 %
-%$Id: smooth1.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 %   NOTES
 %

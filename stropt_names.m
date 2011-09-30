@@ -9,7 +9,7 @@ function namelist = stropt_names (optin)
 %
 %   See also STROPT_SET, STROPT_GET, STROPT2STRUCT, STROPT_DEFAULTS
 %
-%$Id: stropt_names.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 chkstropt(optin);
 namelist = optin(1:2:end);

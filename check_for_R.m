@@ -4,7 +4,7 @@ function check_for_R
 %   Uses the RMatlab interface.  If you call initializeR twice in the same
 %   Matlab session, matlab crashes.
 %
-%$Id: check_for_R.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 global RMATLAB_R_IS_INITIALIZED
 

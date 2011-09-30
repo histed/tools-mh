@@ -14,7 +14,7 @@ function resize_legend (hL, resizeFact, whichPartOfLegend)
 %
 %
 %Based on code by: Jim Phillips and Denis Gilbert, 03-Dec-1999
-%$Id: resize_legend.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 %  Notes: 
 %     We should really install a ResizeFcn on the figure which calls 

@@ -3,7 +3,7 @@ function export_to_libsvm(filename, dataMat, rowLabels)
 %
 %   EXPORT_TO_LIBSVM(filename, dataMat, rowLabels)
 %
-%$Id: export_to_libsvm.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 fid = fopen(filename, 'w');
 

@@ -2,7 +2,7 @@ function b = memory_used(baseOrCurrentStr)
 %
 %   baseOrCurrentStr can be 'base', 'current', or 'both'
 %  
-%$Id: memory_used.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 
 if nargin < 1, baseOrCurrentStr = 'both'; end

@@ -4,7 +4,7 @@ function [starti,endi] = find_consecutive_true (invec, how_many)
 %
 %  find consecutive true entries of HOW_MANY or more in a logical vector
 %
-%  $Id: find_consecutive_true.m 125 2008-03-20 20:19:22Z vincent $
+%    MH - http://github.com/histed/tools-mh
 
 if nargin < 2, how_many = 2; end
 

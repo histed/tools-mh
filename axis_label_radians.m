@@ -7,7 +7,7 @@ function textH = axis_label_radians(axisLim, nTicks, whichAxis)
 %   yet. 
 %   nTicks counts the first and last, so nTicks == 3 gives a tick at the
 %   start and end and one in the middle
-%$Id: axis_label_radians.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % 3d notes: should offset in only one dimension
 %   changes: allow whichAxis = Z

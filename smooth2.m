@@ -21,7 +21,7 @@ function output = smooth2(input, kernel, width, sigma)
 %
 %   See also FILTER, CONV, CONVN, SMOOTH, KSDENSITY, SMOOTH3
 %
-%$Id: smooth2.m 311 2008-07-31 20:25:12Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, kernel = 'gauss'; end
 % clean up kernel name

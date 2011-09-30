@@ -2,7 +2,7 @@ function stropts = struct2stropt (struct)
 %STRUCT2STROPT (ps-utils): convert opt struct to get/set type stropts
 %  STROPTS = STRUCT2STROPT(STRUCT)
 %
-%$Id: struct2stropt.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 s=fieldnames(struct);
 v=struct2cell(struct);

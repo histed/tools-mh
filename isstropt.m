@@ -3,7 +3,7 @@ function boolOut = isstropt(putative_stropt)
 %   boolOut = ISSTROPT(PUTATIVE_STROPT)
 %   Used for stropt param checking
 %
-%$Id: isstropt.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if ~(isempty(putative_stropt) ...
      || (mod(length(putative_stropt),2) == 0 ...

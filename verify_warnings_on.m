@@ -2,7 +2,7 @@ function verify_warnings_on
 %VERIFY_WARNINGS_ON (ps-utils): if warning state is off, error()
 %   VERIFY_WARNINGS_ON
 %
-%$Id: verify_warnings_on.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 ws = warning;
 wId = { ws.identifier };

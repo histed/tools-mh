@@ -18,7 +18,7 @@ function dat = csvread_textornum(filename, leaveUnknownAsText, ignoreStrs)
 % 
 %  Data is cached to avoid multiple reads, should be transparent to user.
 % 
-%$Id: csvread_textornum.m 253 2008-06-06 18:38:39Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2 || isempty(leaveUnknownAsText), leaveUnknownAsText = false; end
 if nargin < 3, ignoreStrs =''; end

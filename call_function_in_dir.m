@@ -4,7 +4,7 @@ function varargout = call_function_in_dir(fName, workingDir, varargin)
 %
 %   Handles cleanup 
 % 
-%$Id: call_function_in_dir.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 oldDir = pwd;
 

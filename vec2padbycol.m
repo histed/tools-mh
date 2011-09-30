@@ -9,7 +9,7 @@ function padmat = vec2padbycol(invec, colnum, pad, maxcol)
 %
 %    Note the output matrix is stored in column-major form.
 %   
-%$Id: vec2padbycol.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 3, pad = NaN; end
 if nargin < 4, maxcol = max(colnum); end

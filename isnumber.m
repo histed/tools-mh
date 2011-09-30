@@ -9,7 +9,7 @@ function outbool = isnumber (instr)
 % This is likely slow, isletter is implemented as an internal
 % function.
 %
-% $Id: isnumber.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 numbers = '1234567890';
 outbool = [];

@@ -10,7 +10,7 @@ function offset_markers(handles, x_offset_amt, y_offset_amt)
 %
 %   Only works with 2-d plots
 %
-% $Id: offset_markers.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 nHandles = length(handles);
 allVect = [];
 % make a big vector of each of the X and Y data

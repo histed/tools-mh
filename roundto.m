@@ -5,6 +5,6 @@ function X = roundto(Xin,n)
 %
 %   See also CHOP, FLOORTO, CEILTO
 %
-%$Id: roundto.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 X = round(Xin .* 10.^(n)) ./ 10.^(n);

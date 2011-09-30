@@ -17,7 +17,7 @@ function [starti,endi] = find_consecutive (invec, increment)
 %  find_consecutive (invec, 2): starti = [  9 ]
 %                               endi   = [ 13 ]
 %
-%  $Id: find_consecutive.m 125 2008-03-20 20:19:22Z vincent $
+%    MH - http://github.com/histed/tools-mh
 
 starti = [];
 endi = [];

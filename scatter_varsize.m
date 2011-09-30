@@ -4,7 +4,7 @@ function outH = scatter_varsize(x, y, scalesize, extraparms)
 %
 %   See also: SCATTER
 %
-%$Id: scatter_varsize.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 3 || isempty(scalesize), scalesize = 3; end
 if nargin < 4, extraparms = {}; end

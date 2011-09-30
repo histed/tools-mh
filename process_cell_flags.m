@@ -14,7 +14,7 @@ function varargout = process_cell_flags (flag_names_cell, flags_cell)
 %   [keep_eog keep_epp keep_header keep_codes] = ...
 %       process_cell_flags ({'eog', 'epp', 'header', 'codes'}, varargin);
 %
-%$Id: process_cell_flags.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if ~iscell (flags_cell), flags_cell = {flags_cell}; end
 num_poss_flags = length (flag_names_cell);

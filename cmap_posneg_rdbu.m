@@ -7,7 +7,7 @@ function scaledMap = cmap_posneg_rdbu(m, zeroAtPos)
 %   MH 080501: support rescaling zero point / asymmetric map
 %              hand-interpolate to 11 elements, not 10
 %
-%$Id: cmap_posneg_rdbu.m 205 2008-05-02 03:37:09Z histed $ 
+%  MH - http://github.com/histed/tools-mh 
 
 if nargin < 1, m = []; end
 if nargin < 2, zeroAtPos = []; end

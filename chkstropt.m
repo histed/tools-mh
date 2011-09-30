@@ -3,7 +3,7 @@ function chkstropt(putative_stropt)
 %   CHKSTROPT(PUTATIVE_STROPT)
 %   Used for stropt param checking
 %
-%$Id: chkstropt.m 319 2008-08-20 22:14:21Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if ~isstropt(putative_stropt)
     strfromcell = evalc('disp(putative_stropt)');

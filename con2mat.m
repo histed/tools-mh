@@ -20,7 +20,7 @@ function [allconditions, headerline] = con2mat (infile)
 %   This should read the items file directly also, by changing the
 %   filename.
 %
-%$Id: con2mat.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 [fid, message] = fopen(infile,'rt');
 if fid == -1,

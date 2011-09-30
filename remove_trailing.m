@@ -8,7 +8,7 @@ function newvec = remove_trailing (oldvec, trailers_to_remove)
 %      remove_trailing ([0 1 2 3 4 5 6 7 8 7], [8 7]) == [0 1 2 3 4 5 6]
 %      remove_trailing (str, ' ') is the same as deblank (str)
 %
-%$Id: remove_trailing.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 is = find (~ismember (oldvec, trailers_to_remove));
 newvec = oldvec (1:max(is));

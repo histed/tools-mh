@@ -45,7 +45,7 @@ function [outData, outKey] = memory_cache(functionStr, ...
 % $$$ memory_cache('set', {v1, v2}, cacheKey,outdatedKey,'allowDups');
 % $$$ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   
-%$Id: memory_cache.m 482 2009-04-13 15:56:24Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 %To flush the cache when the mfile is changed
     

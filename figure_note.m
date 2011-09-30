@@ -2,7 +2,7 @@ function h = figure_note(str, varargin)
 %FIGURE_NOTE (ps-utils): make little note in the bottom-right of figure
 %   H = FIGURE_NOTE(STR, VARARGIN)
 %
-%$Id: figure_note.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 hold on
 ha = axes('Visible', 'off');

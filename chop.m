@@ -17,7 +17,7 @@ function X = chop(Xin,n,unit,chopType)
 %
 %   See also: ROUNDTO
 %
-%$Id: chop.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 %% orig. modified from Carlos Lopez (clv2clv@adinet.com.uy)
 %  http://groups.google.com/groups?hl=en&lr=&ie=UTF-8&safe=off&selm=eeebaab.2%40webx.raydaftYaTP

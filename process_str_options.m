@@ -35,7 +35,7 @@ function opt_struct = process_str_options(default_cell, option_cell)
 %    experiment_name: 'deep'
 %                 no: 1
 %
-%$Id: process_str_options.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % could check for repeated options (would be error) but don't
 % user can figure out the confusing error message themselves if they repeat opts

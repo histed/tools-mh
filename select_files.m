@@ -8,7 +8,7 @@ function [cellfiles,nfiles,result] = select_files (inpath, inmask)
 %   specified this program exits on error.
 %   If a filename is passed in, it is just returned.
 %
-%$Id: select_files.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if ~exist ('inmask')
   inmask = '';

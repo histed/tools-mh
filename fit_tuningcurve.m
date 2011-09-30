@@ -17,7 +17,7 @@ function outStruct = fit_tuningcurve(varargin)
 % Do transforms on data before calling this function
 % 
 %
-%$Id: fit_tuningcurve.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % option processing
 udefs = { 'Data', 'error: must specify', ...

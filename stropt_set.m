@@ -19,7 +19,7 @@ function optout = stropt_set (optin, varargin)
 %
 %   See also STROPT_GET, STROPT2STRUCT, STROPT_DEFAULTS
 %
-%$Id: stropt_set.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % handle both parameter types
 if length(varargin) == 1

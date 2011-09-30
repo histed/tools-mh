@@ -6,7 +6,7 @@ function mname = caller_mfilename (levels_up, use_fcn_names)
 %   when traversing the stack, else return the mfilename. 
 %
 %
-%$Id: caller_mfilename.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 1, levels_up = 1; end
 if nargin < 2, use_fcn_names = false; end

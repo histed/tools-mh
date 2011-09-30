@@ -17,7 +17,7 @@ function sbH = axes_draw_scalebar(varargin)
 %                           'Location', 'NorthWest');
 %   
 %
-%$Id: axes_draw_scalebar.m 521 2009-05-06 18:44:36Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 axH = gca;
 figH = get(axH, 'Parent');

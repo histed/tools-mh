@@ -6,7 +6,7 @@ function bool = isstropt_name (optin, names)
 %
 %   See also STROPT_SET, STROPT_GET, STROPT2STRUCT, STROPT_DEFAULTS
 %
-%$Id: isstropt_name.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % chkstropt(optin); done in stropt_names
 namelist = stropt_names(optin);

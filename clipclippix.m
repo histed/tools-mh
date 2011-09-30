@@ -9,7 +9,7 @@ function clipclippix(figH, pixSize)
 %
 %   See also CLIPCLIP, CLIPCLIPIMAGE
 %
-%$Id: clipclippix.m 267 2008-06-20 19:16:59Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 1 || isempty(figH), figH = gcf; end
 if nargin < 2 || isempty(pixSize), pixSize = [800 600]; end

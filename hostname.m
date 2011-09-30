@@ -3,7 +3,7 @@ function outName = hostname
 %   T = HOSTNAME returns the hostname of the current machine.  If FQDN
 %   Only the hostname (without domain) is returned.
 %
-%$Id: hostname.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % cache check
 persistent cached_name

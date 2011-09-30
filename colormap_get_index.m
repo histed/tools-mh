@@ -6,7 +6,7 @@ function cmapNum = colormap_get_index(rgb)
 %   the last entry in the new colormap.  RGB can be a matrix; the columns are
 %   the R,G,B values.
 %
-%$Id: colormap_get_index.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 rgb = colorspec2rgb(rgb);
 if isvector(rgb), rgb = rowvect(rgb); end

@@ -7,7 +7,7 @@ function y = nansum_dim(x,dim)
 %
 %   Notes: not needed for matlab 6 (R14)
 %
-% $Id: nansum_dim.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 x(isnan(x)) = 0;
 y = sum(x,dim);

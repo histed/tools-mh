@@ -2,7 +2,7 @@ function cellstrOut = cell2cellstr(cellIn)
 %CELL2CELLSTR (ps-utils): recursively convert all cells of a cell arr to str
 %   CELLSTROUT = CELL2CELLSTR(CELLIN)
 %   
-%$Id: cell2cellstr.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 assert(iscell(cellIn), 'Input must be a cell array');
 

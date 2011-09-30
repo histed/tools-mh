@@ -4,7 +4,7 @@ function outName = username
 %
 % by Vincent Bonin 
 % based on HOSTNAME by Mark Histed
-%$Id: username.m 452 2009-01-21 19:26:11Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 outName = getenv('USERNAME');
 

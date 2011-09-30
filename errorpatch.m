@@ -10,7 +10,7 @@ function patchH = errorpatch(x,y,l,u)
 %
 %   See also ERRORBAR, ANYSTACK
 %   
-%$Id: errorpatch.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 
 %%% Process arguments

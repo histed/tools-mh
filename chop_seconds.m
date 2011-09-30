@@ -14,7 +14,7 @@ function outSec = chop_seconds(inSec, sigDigits)
 %
 %   See also SECONDS2STR, CHOP
 %
-%$Id: chop_seconds.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if sigDigits <= 1, error('Invalid sigDigits: %d', sigDigits); end
 

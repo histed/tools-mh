@@ -13,7 +13,7 @@ function d = dummyv(x, coding)
 %  
 %   based on MATLAB DUMMYVAR; bugs removed  
 %
-%$Id: dummyv.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, coding = 'full'; end
 switch coding

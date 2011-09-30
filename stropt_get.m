@@ -12,7 +12,7 @@ function val = stropt_get (optin, names, ignoremissing)
 %
 %   See also STROPT_SET, STROPT2STRUCT, STROPT_DEFAULTS
 %
-%$Id: stropt_get.m 319 2008-08-20 22:14:21Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 chkstropt(optin);
 if ~( (iscell(names) && all(cellfun('isclass',names,'char'))) ...

@@ -21,7 +21,7 @@ function exportfigPrint(figH, fileName, varargin)
 % 
 %   See also: PRINT, SPK_SPEC
 %
-%$Id: exportfigPrint.m 266 2008-06-19 05:42:49Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 user_defaults = { 'Size', 7.*[1 0.75] ... % vector; [width height]
                   'Units', 'inches', ... % units of size

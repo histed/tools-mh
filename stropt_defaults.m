@@ -35,7 +35,7 @@ function opt_struct = stropt_defaults(defaults, options, ignorenodefs, altdefnam
 %
 %   SEE ALSO: STROPT_SET
 %
-%$Id: stropt_defaults.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 %% Optimization notes: I built a cached index into real_opt_name because the old
 %  for loop was burning a LOT of time.  ISMEMBER is very slow (and prevented the

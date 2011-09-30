@@ -2,7 +2,7 @@ function outstr = pad_string (instr, size, padchar)
 %PAD_STRING (ps-utils): make a string exactly a certain size
 %   OUTSTR = PAD_STRING (INSTR, SIZE, PADCHAR)
 %
-%$Id: pad_string.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % The old way (pads with blanks)
 %formatstr = sprintf ('%%-%ds', size);

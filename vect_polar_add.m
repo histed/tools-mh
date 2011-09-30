@@ -7,7 +7,7 @@ function [theta_out, r_out] = vect_polar_add(theta_in, r_in, dim)
 %   THETA_OUT: scalar
 %   R_OUT: scalar
 %
-%$Id: vect_polar_add.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 3, dim = 1; end
 

@@ -20,7 +20,7 @@ function comet_speed(x, y, slowdown, p)
 %   Copyright (c) 1984-98 by The MathWorks, Inc.
 %   $Revision: 12 $  $Date: 2002-06-07 16:33:04 -0400 (Fri, 07 Jun 2002) $
 %
-%   $Id: comet_speed.m 125 2008-03-20 20:19:22Z vincent $
+%     MH - http://github.com/histed/tools-mh
 
 if nargin == 0, error('Not enough input arguments.'); end
 if nargin < 2, y = x; x = 1:length(y); end

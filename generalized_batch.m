@@ -37,7 +37,7 @@ function cellout = generalized_batch (cellin, display_status)
 %   { {[1] [2]} 
 %     {[4]}     }
 %
-% $Id: generalized_batch.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 [inrows incols] = size (cellin);
 %outputsizes = sqcell_to_num (cellin (:,2));

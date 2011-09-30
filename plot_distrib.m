@@ -8,7 +8,7 @@ function plot_distrib (inmat, flags)
 %   flags:
 %     'std': use std dev as the variance measure
 %
-%$Id: plot_distrib.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, flags = {'std'}; end
 

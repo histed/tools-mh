@@ -7,7 +7,7 @@ function clipclipimage(axH)
 %
 %   See also CLIPCLIP, CLIPCLIPPIX
 %
-%$Id: clipclipimage.m 267 2008-06-20 19:16:59Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 1, axH = gca; end
 

@@ -6,7 +6,7 @@ function assert_always(varargin)
 %
 %  See also ASSERT
 % 
-%$Id: assert_always.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 3, varargin{3} = 'PSUTILS:always_assert_error'; end
 % this handles the case where nargin == 1 because setting the 3rd element

@@ -6,7 +6,7 @@ function outStruct = struct_vect2singleton(inStruct, fieldDims)
 %   fieldDims is either a scalar or a vector of length nFields, specifying
 %      the dimensions to cat for each field.  
 %   
-%$Id: struct_vect2singleton.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % Notes: there should be a way to do this for struct arrays with ndims >= 2
 % but I don't know how right now

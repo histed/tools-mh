@@ -3,7 +3,7 @@ function dirTime = lastmodtime(filename)
 %
 %   dirTime = LASTMODTIME(filename)
 %
-%$Id: lastmodtime.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 d = dir(filename);
 if isempty(d)

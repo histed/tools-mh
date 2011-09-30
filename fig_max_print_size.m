@@ -6,7 +6,7 @@ function fig_max_print_size (fig_handle)
 %
 %  fig_handle specifies the figure to change, default is current figure
 %
-% $Id: fig_max_print_size.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 margin_size = 0.2;  % inches
 

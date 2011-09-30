@@ -3,7 +3,7 @@ function outPath = pathclean(inPath)
 %
 %   080616: histed: created
 %
-%$Id$
+%  MH - http://github.com/histed/tools-mh
 
 if isunix
     error('not implemented yet: usually use forward slashes all the time');

@@ -7,7 +7,7 @@ function colorOrder = colors_linspace(nDesColors, axesH)
 %   colorOrder: this function sets the ColorOrder property in axesH and
 %      optionally returns it in colorOrder.
 %
-%$Id: colors_linspace.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, axesH = gca; end
 figH = get(axesH, 'Parent');

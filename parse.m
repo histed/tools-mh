@@ -8,7 +8,7 @@ function output = parse (input, delimiters)
 %   delimiters in input get chomped by this routine and do not
 %   appear in output.
 % 
-%$Id: parse.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 remain = input;
 output = [];

@@ -4,7 +4,7 @@ function handles = vert_shade_gauss (mu, sigma, maxintensity, yminmax)
 %   
 %   See also VERT_SHADE.
 %
-%$Id: vert_shade_gauss.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 4, yminmax = []; end
 

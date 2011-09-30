@@ -6,7 +6,7 @@ function I = information_discrete(y, x, biascorrect)
 %   If doing bias correction, Y must be R and X must be S.  If not, 
 %   Y and X are interchangeable.
 %
-%$Id: information_discrete.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 3, biascorrect = 0; end
 

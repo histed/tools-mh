@@ -5,7 +5,7 @@ function cam_struct = camera_save(axisHandle)
 %
 %   See also CAMERA_APPLY
 %
-%$Id: camera_save.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 1, axisHandle = gca; end
 

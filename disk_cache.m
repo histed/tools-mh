@@ -40,8 +40,8 @@ function [outData, outKey, varargout] = disk_cache(functionStr, varargin)
 %
 %   See also: MEMORY_CACHE    
 %
-%$Id: disk_cache.m 164 2008-04-07 04:32:20Z histed $
-
+%   MH - http://github.com/histed/tools-mh
+%
 %   Example:
 %
 % $$$ %%% check disk cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -4,7 +4,7 @@ function hash = hash_recurse(inArr)
 %
 %   Note that this is slow, don't call it in a loop.
 %
-%$Id: hash_recurse.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 hashLen = 16;  % bytes
 emptyHash = [125  234   54   43   63  172  142    0, ...  % hash_recurse(0)

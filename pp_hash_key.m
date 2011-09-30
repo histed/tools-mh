@@ -1,7 +1,7 @@
 function ppStr = pp_hash_key(inKey, maxChars)
 %PP_HASH_KEY (ps-utils): pretty print a hash key to a str for display
 %
-%$Id: pp_hash_key.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if isvector(inKey), inKey = rowvect(inKey); end
 if iscell(inKey) && length(inKey) == 1, inKey = inKey{1}; end

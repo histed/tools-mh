@@ -2,7 +2,7 @@ function strOut = deblank_bothsides(strIn)
 %DEBLANK_BOTHSIDES (ps-utils): remove leading and trailing blanks from a string
 %   strOut = DEBLANK_BOTHSIDES(strIn)
 %
-%$Id: deblank_bothsides.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if iscellstr(strIn)
     nStrs = length(strIn);

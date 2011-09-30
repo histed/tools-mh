@@ -4,7 +4,7 @@ function deltree(pathToDel)
 %
 %   080315 histed - brought in from old posit code
 %
-%$Id: deltree.m 266 2008-06-19 05:42:49Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 %%% Check args
 if iscell(pathToDel) && length(pathToDel) == 1

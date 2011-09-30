@@ -47,7 +47,7 @@ function cortex_data = cortex_read_fields (ctx_filename, options, stop_after_tri
 %     starting from 0.  this function adds 1 so the first condition (e.g.)  is
 %     numbered 1, not 0.
 %
-%$Id: cortex_read_fields.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 file=ctx_filename;
 

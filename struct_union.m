@@ -7,7 +7,7 @@ function merged = struct_union(primary, secondary)
 %   Notes: could be optimized for speed, now O(n) in the number of fields in
 %   primary.
 %
-%$Id: struct_union.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if isempty(secondary), merged=primary; return; end
 if isempty(primary), merged=secondary; return; end

@@ -6,7 +6,7 @@ function num = sqcell_to_num (cellin)
 % Each element of the cell array must contain a square 2D numeric
 % array, and each of these arrays must be the same size.
 %
-% $Id: sqcell_to_num.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 if ndims (cellin) > 2
   warning ('Greater than two dimensions in cell array argument.');

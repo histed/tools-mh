@@ -10,7 +10,7 @@ function vectorout = deletechar (vectorin, char_to_remove)
 % given character from a vector.  These characters will be deleted
 % and the vector will shrink.
 %
-% $Id: deletechar.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 if ~exist ('char_to_remove')
   char_to_remove = 0;

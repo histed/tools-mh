@@ -4,7 +4,7 @@ function rgbVec = colorspec2rgb(inColorSpec)
 %   rgbVec = COLORSPEC2RGB(inColorSpec)
 %
 %   Convert matlab's color specs (can be strings) to rgb vectors
-%$Id: colorspec2rgb.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % make everything a cell array
 if ischar(inColorSpec)

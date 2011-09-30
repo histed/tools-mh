@@ -4,7 +4,7 @@ function origData = transfinv_anscombe(inputTransformedData)
 %
 %   Can be used by PREF_DIR_BOTH_SEQUENTIAL, DECODE_RATE_TO_VECTOR
 %
-%$Id: transfinv_anscombe.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 origData = sign(inputTransformedData) ...
            .* ((inputTransformedData.^2) - (3/8));

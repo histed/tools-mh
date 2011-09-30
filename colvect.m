@@ -6,7 +6,7 @@ function cv = colvect (row_or_col_vect)
 %
 %   See also ROWVECT
 %
-%$Id: colvect.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 [rs cs] = size (row_or_col_vect);
 

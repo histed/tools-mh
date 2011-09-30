@@ -9,7 +9,7 @@ function restackedH = anystack(inHandles, stackPlacementStr)
 %
 %  See also UISTACK
 %
-%$Id: anystack.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if isempty(inHandles)
     error('Empty handle matrix passed in');

@@ -7,7 +7,7 @@ function y = vonmpdf(angles, mu, kappa)
 %
 %   See p36 of Mardia and Jupp (2000)
 %
-%$Id: vonmpdf.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 
 if kappa < 0, warning('Kappa should be >0; M(u+pi,kappa) == M(u,-kappa)'); end

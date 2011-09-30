@@ -11,7 +11,7 @@ function optout = stropt_del (optin, opts_to_del, ignoremissing)
 %
 %   See also STROPT_GET, STROPT2STRUCT, STROPT_DEFAULTS
 %
-%$Id: stropt_del.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin>2, 
     if strcmp(ignoremissing, 'ignoremissing') == 1

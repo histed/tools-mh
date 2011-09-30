@@ -2,7 +2,7 @@ function outCell = cellstr_cat(varargin)
 %CELLSTR_CAT (ps-utils): take cellstr and char strings, return a single cellstr
 %  OUTCELL = CELLSTR_CAT(VARARGIN)
 %
-%$Id: cellstr_cat.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % a lot of hairy work here to avoid looping.
 

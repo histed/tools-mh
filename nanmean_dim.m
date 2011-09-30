@@ -6,7 +6,7 @@ function y = nanmean_dim(x,dim)
 %   DIM specifies the dimension to work along.  Defaults to first
 %   non-singleton dimension.
 %
-% $Id: nanmean_dim.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 if nargin<2, 
   % Determine which dimension SUM will use

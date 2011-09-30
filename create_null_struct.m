@@ -14,7 +14,7 @@ function outStruct = create_null_struct(inStruct, useNaNForNonFloatsStr)
 %   Note that this function is called recursively when inStruct has fields
 %   that are structs.  Be careful not to nest too deeply.
 %
-%$Id: create_null_struct.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 % notes: could use blanks for strings at some point
 

@@ -6,7 +6,7 @@ function new = toggle (old)
 %   toggle (0) == 1
 %   toggle (548) == 0
 %
-%$Id: toggle.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if old == 0
   new = 1;

@@ -14,7 +14,7 @@ function outImg = render_text_to_array(tString, varargin)
 %  slow.  
 %
 %
-% $Id: render_text_to_array.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 %%% check mem cache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 cacheKey = {mfilename, tString, varargin}; outdatedKey = {};

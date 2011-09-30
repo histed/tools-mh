@@ -14,7 +14,7 @@ function padmat = vec2padded(invec, startix, whichcols, endix, pad)
 %
 %   See also: VEC2PADBYCOL
 %
-%$Id: vec2padded.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 if length(startix) == 1 
     padmat = colvect(invec(startix:endix));

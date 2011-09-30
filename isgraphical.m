@@ -3,7 +3,7 @@ function yesgraphics = isgraphical;
 %
 % stores state between calls so subsequent calls are faster
 %
-% $Id: isgraphical.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 persistent pyesgr;
 if isempty (pyesgr)

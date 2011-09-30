@@ -7,7 +7,7 @@ function rotate_patch(patchHandle, whichAxis, deg)
 %
 %   See also: ROTATE (bug: does not rotate VertexNormals)
 %   
-%$Id: rotate_patch.m 125 2008-03-20 20:19:22Z vincent $
+%  MH - http://github.com/histed/tools-mh
 
 switch whichAxis
     case 'X'

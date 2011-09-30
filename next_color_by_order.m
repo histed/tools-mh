@@ -6,7 +6,7 @@ function [tColor,nearestCmapNum] = next_color_by_order(colorNum, axesH, colorOrd
 %
 %   Can specify your own colorOrder
 %
-%$Id: next_color_by_order.m 341 2008-09-24 14:45:44Z histed $
+%  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, axesH = gca; end
 if nargin < 3, colorOrder = []; end

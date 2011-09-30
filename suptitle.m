@@ -8,7 +8,7 @@ function hout=suptitle(str) %, doTitlePos)
 %
 % John Cristion 12/13/00 modified
 % 
-% $Id: suptitle.m 125 2008-03-20 20:19:22Z vincent $
+%   MH - http://github.com/histed/tools-mh
 
 %if nargin < 1, doTitlePos = false; end
 
