@@ -26,10 +26,7 @@ function output = smooth1(input, kernel, width, sigma, dim)
 %
 %   Old SMOOTH1 defaults were kernel 'gauss', width 6, sigma 10
 %
-%   This is faster than SpikeTools's SMOOTH since it uses MATLAB's builtin
-%   FILTER and SMOOTH (SpikeTools) uses a for loop.
-%   Note that the kernel used here is different
-%   than that used in SMOOTH and so results will be slightly different.
+%   Uses FILTER from MATLAB
 
 %% argument processing
 if nargin < 2, kernel = 'gauss'; end
