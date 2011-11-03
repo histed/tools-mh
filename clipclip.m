@@ -15,7 +15,6 @@ if nargin < 1 || isempty(figH), figH = gcf; end
 if nargin < 2 || isempty(tSize), tSize = 6*[1 0.75]; end
 if nargin < 3 || isempty(fFormat), fFormat = 'pdf'; end
 
-fName = [mfilename '-' datestr(now, 'yymmdd-HHMM_SS_FFF')];
 
 %% set paths
 % file export path
@@ -25,11 +24,26 @@ dirs = directories;
 assert(isfield(dirs, 'toolsSnapshots'), ....
        'needed dir entry is missing, edit directories.m');
 
-fullF = fullfileMH(dirs.toolsSnapshots, fName);
-exportfig_print(figH, fullF, ...
-                'FileFormat', fFormat, ...
-                'Size', tSize, ...
-                'Renderer', 'painters');
+nFigs = length(figH);
+allNameC = {};
+for iFig = 1:nFigs
+    tFig = figH(iFig);
+
+    fName = [mfilename '-' datestr(now, 'yymmdd-HHMM_SS_FFF')];
+    allNameC{iFig} = fName;
+    
+    fullF = fullfileMH(dirs.toolsSnapshots, fName);
+    exportfig_print(tFig, fullF, ...
+                    'FileFormat', fFormat, ...
+                    'Size', tSize, ...
+                    'Renderer', 'painters');
+    
+end
+if length(allNameC) > 1
+    if any(strcmp(allNameC{1}, allNameC(2:end)))
+        error('clipclip working too fast, need to change filename to avoid collison');
+    end
+end    
 
 
 

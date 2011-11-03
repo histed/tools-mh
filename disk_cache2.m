@@ -58,10 +58,13 @@ outFileName = fullfile(cacheDir, ['diskcache2_' cacheKeyStr '.mat']);
 switch lower(opStr)
   case 'set'
     save(outFileName, 'inData');
+    dirS = dir(outFileName);
     w = whos('inData');
     if ~quiet
-        fprintf(1, 'disk_cache2: saved %sb (before zip), file %s\n', ...
-                num2str_metric(w.bytes,2), outFileName);
+        fprintf(1, 'disk_cache2: saved %sb (%sb compressed), file %s\n', ...
+                num2str_metric(w.bytes,2), ...
+                num2str_metric(dirS.bytes,2), ...
+                outFileName);
     end
     
   case 'get'
