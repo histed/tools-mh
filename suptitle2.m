@@ -9,14 +9,17 @@ function textH = suptitle2(str)
 %
 %   MH - http://github.com/histed/tools-mh
 
-suptitleNormHeight = 0.06;
+suptitleNormHeight = 0.04;
 
 % save old axes
 savedEntryAxesH = gca;
 
 % adjust existing subplots
-subH = findobj(gcf, 'Type', 'axes');
-if any(strcmp('Colorbar', get(subH, 'Tag')))
+allAxH = findobj(gcf, 'Type', 'axes');
+otherH = findobj(gcf, 'Type', 'axes', 'Tag', 'legend');
+subH = setdiff(allAxH, otherH);
+
+if any(strcmp('Colorbar', get(allAxH, 'Tag')))
     % this function needs to be updated to handle colorbars.  The problem is
     % that matlab's automatic colorbar positioning code is very complicated, 
     % resizes the axis, and it's hard to guess what it's going to do.  It
@@ -24,20 +27,26 @@ if any(strcmp('Colorbar', get(subH, 'Tag')))
     % axis position-- but I couldn't figure out an easy way to do this.
     error('Draw colorbars after calling suptitle2');
 end
-nSubAxes = length(subH);
-for iA = 1:nSubAxes
-    oPos = get(subH(iA), 'OuterPosition');
-    newPos = oPos;
-    newPos([2 4]) = newPos([2 4]) ...
-                    * (1-suptitleNormHeight); % shrink along y-axis
-    set(subH(iA), 'OuterPosition', newPos);
-end
+
+%% goal here: scale y height and y position to shrink all axes.  To scale the
+% whole set of plots correctly we must use the y end position not the start
+% (i.e. pos(:,2)+pos(:,4) not pos(:,2)
+opC = get(subH, 'OuterPosition');
+opM = cat(1, opC{:});
+yEndOld = opM(:,2)+opM(:,4);
+yHtNew = opM(:,4)*(1-suptitleNormHeight);
+yEndNew = yEndOld*(1-suptitleNormHeight);
+opNew = [opM(:,1) (yEndNew-yHtNew) opM(:,3) yHtNew];
+newC = mat2cell(opNew, ones([1,length(subH)]), 4);
+set(subH, {'OuterPosition'}, newC);
+
 
 invisH = axes('Units', 'normalized', ...
               'Position', [0 0 1 1], ...
               'Visible', 'off', ...
               'Tag', 'suptitle2');
 textH = text(0.5, 1-(suptitleNormHeight*0.6), str, ...
+             'Units', 'normalized', ...
              'HorizontalAlignment', 'center', ...
              'VerticalAlignment', 'middle', ...
              'Tag', 'suptitle2');
@@ -45,6 +54,5 @@ textH = text(0.5, 1-(suptitleNormHeight*0.6), str, ...
 % restore old axis, without using a drawnow
 set(gcf, 'CurrentAxes', savedEntryAxesH);
 
-%%debug: set(gcf, 'Visible', 'off'); keyboard
 
 
