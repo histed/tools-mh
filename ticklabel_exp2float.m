@@ -1,6 +1,6 @@
-function ticklabel_linspace(axH, axisStr)
+function ticklabel_exp2float(axH, axisStr)
 %
-%   outStrs = TICKLABEL_LINSPACE(axH, axisStr)
+%   outStrs = TICKLABEL_EXP2FLOAT(axH, axisStr)
 %
 %   axH specifies axes (leave empty for gca):
 %   axisStr is 'x', 'y', or 'z' (Case insensitive), use X as an example below

@@ -10,4 +10,4 @@ function cellout = mat2cell_singleton (mat)
 %
 %   MH - http://github.com/histed/tools-mh
 
-cellout = mat2cell (mat, 1, ones (size(mat,1), size(mat,2)));
+cellout = mat2cell(mat, ones(size(mat,1),1), ones(size(mat,2),1));
