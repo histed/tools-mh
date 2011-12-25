@@ -53,7 +53,7 @@ if nargin < 2 || isempty(options)
 end    
 if nargin < 3
     rejectnodefs = 1;
-elseif ischar(ignorenodefs) && strcmp('ignorenodefs', ignorenodefs)
+elseif ischar(ignorenodefs) && strcmpi('ignorenodefs', ignorenodefs)
     rejectnodefs = 0;
 elseif (isempty(ignorenodefs) || ignorenodefs == 0)
     rejectnodefs = 1;
@@ -106,8 +106,13 @@ for i = 1:length(optnames)
     end
  
     
-    if any(strcmp(defnames, realname))
+    nIx = strcmpi(defnames, realname);
+    nMatches = sum(nIx);
+    if nMatches == 1
         defaultexists = 1;
+        realname = defnames{nIx};  % use case as in defaults struct
+    elseif nMatches > 1
+        error('More than one default with the same name?');
     else
         defaultexists = 0;
     end
@@ -120,7 +125,7 @@ for i = 1:length(optnames)
     % running this on user input.
 
     if ~defaultexists && rejectnodefs
-        error('There is no default by that name (case sensitive): ''%s''', realname);
+        error('There is no default by that name: ''%s''', realname);
     elseif defaultexists && forcedefault
         % usage of default value requested and it's already in there, just
         % move on
