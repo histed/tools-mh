@@ -74,7 +74,8 @@ end
   
 
 %%Deal with GS bug on paths > 120chars
-if length(fileName) > 120
+if length(fileName) > 150
+    
     error('Output file name too long: Ghostscript will cause error');
     
     % one way to deal is below; needs debugging

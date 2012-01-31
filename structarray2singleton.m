@@ -38,7 +38,8 @@ for iF=1:nFields
         % structure, call recursively
         
         if all(isSIx(:))
-            singleStruct.(tFieldName) = structarray2singleton(tFieldVals);
+            s = structincell2structarray(tFieldVals);
+            singleStruct.(tFieldName) = structarray2singleton(s);
         end
     else
         % copy directly

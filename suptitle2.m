@@ -4,8 +4,9 @@ function textH = suptitle2(str)
 %   above all subplots (a "super title"). 
 % 
 %   This is much simpler than the old SUPTITLE because it uses the new
-%   OuterPosition property.  It also does not have the side effect of forcing a
-%   screen redraw.
+%   OuterPosition property.  
+%   It must force a redraw for this property to be computed correctly.
+%   (as of Matlab 2011a)
 %
 %   You should call this after all subplots are drawn, for speed reasons, but
 %   it should resize all your subplots correctly even if used between plots.
@@ -15,6 +16,7 @@ function textH = suptitle2(str)
 suptitleNormHeight = 0.04;
 
 % save old axes
+savedEntryFigH = gcf;
 savedEntryAxesH = gca;
 
 % look for old
@@ -54,6 +56,13 @@ end
 %% goal here: scale y height and y position to shrink all axes.  To scale the
 % whole set of plots correctly we must use the y end position not the start
 % (i.e. pos(:,2)+pos(:,4) not pos(:,2)
+
+% bug in matlab 2011a: does not compute outerposition correctly until after a
+% drawnow, when(I think) activepositionproperty is 'position'.  It's possible
+% to try computing from Position and TightInset but the most robust solution
+% is to draw.
+drawnow;
+
 opC = get(subH, 'OuterPosition');
 if ~iscell(opC), opC = {opC}; end  % one subplot
 opM = cat(1, opC{:});
@@ -81,6 +90,7 @@ ud.oldSubplotHandles = subH;
 set(invisH, 'UserData', ud);
 
 % restore old axis, without using a drawnow
+set(0, 'CurrentFigure', savedEntryFigH);
 set(gcf, 'CurrentAxes', savedEntryAxesH);
 
 
