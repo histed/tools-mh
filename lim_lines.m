@@ -23,7 +23,7 @@ if nargin > 1 && ischar(posVect) && strcmpi(posVect, 'update')
 end
 
 %% process normally if not update
-if nargin < 2
+if nargin < 2 || isempty(alongAxesStr)
     alongAxesStr = 'X'; ...
 end
 if nargin < 3, 
@@ -31,6 +31,14 @@ if nargin < 3,
 else
     lineProps = varargin;
 end
+
+%% check errors
+if ischar(alongAxesStr) & ~any(strcmpi({'x', 'y'}, alongAxesStr))
+    error('invalid value for alongAxesStr: %s', alongAxesStr);
+end
+
+
+
 
 %%
 tagStr = sprintf('%sLim', upper(alongAxesStr));
