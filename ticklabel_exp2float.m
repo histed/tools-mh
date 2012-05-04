@@ -27,7 +27,7 @@ end
 tLStr = [ tStr 'Label' ];
 
 % almost ridiculously simple
-tTL = cellstr(num2str(get(axH, tStr)', 2));
+tTL = cellstr(num2str(get(axH, tStr)', 4));
 set(axH, tLStr, tTL);
     
     
