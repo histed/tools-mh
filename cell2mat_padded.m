@@ -18,11 +18,11 @@ function matOut = cell2mat_padded (cellIn, dim, padVal)
 %   
 %  MH - http://github.com/histed/tools-mh
 
-if nargin < 2, padVal = 0; end
-if nargin < 3, dim = 1; end
-
-% check input
 assert(isvector(cellIn), 'Only cell vectors are supported now');
+
+if nargin < 2 || isempty(dim), dim = find(size(cellIn) ~= 1, 1); end
+if nargin < 3, padVal = 0; end
+
 nEls = length(cellIn);
 
 %% calculate output size
@@ -34,11 +34,23 @@ maxSizes = max(allSizeMat, [], 1);
 oneOutSize = maxSizes;
 outSize = maxSizes;
 outSize(dim) = outSize(dim)*nEls;
-matOut = repmat(padVal, outSize);
+if isnan(padVal)
+    matOut = nan(outSize); % mathworks says these special funcs are faster
+elseif padVal == 0
+    matOut = zeros(outSize);
+else
+    matOut = repmat(padVal, outSize);
+end
+
 
 
 %% construct padded versions of output matrix
-nonDim = setdiff(1:maxDims, dim);
+% WOW is this slow MH 120510 Matlab 2011a - new is 50% faster, small arrs
+%nonDim = setdiff(1:maxDims, dim);
+nonDim = 1:maxDims;
+nonDim(dim) = 0;
+nonDim = nonDim(nonDim>0);
+
 cellOut = cellIn;
 for iE = 1:nEls
     tSize = allSizeMat(iE,:);
