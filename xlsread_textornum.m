@@ -15,9 +15,10 @@ function dsT = xlsread_textornum(xlsFileName, sheet)
 
 % histed 120501: created
 
-if nargin < 2, sheet = []; end
+if nargin < 2, sheet = ''; end
 
-[num,text,raw] = xlsread(xlsFileName, sheet);
+warning('off', 'MATLAB:xlsread:Mode');
+[num,text,raw] = xlsread(xlsFileName, sheet, '', 'basic');
 
 % remove header line
 dsT.colNames = raw(1,:);
