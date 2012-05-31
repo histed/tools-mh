@@ -29,7 +29,11 @@ if ~isempty(supH)
     
     % restore old positions
     ud = get(supH, 'UserData');
-    set(ud.oldSubplotHandles, {'OuterPosition'}, ud.oldOuterPositions);
+    validHList = ud.oldSubplotHandles(ishandle(ud.oldSubplotHandles));
+    if ~isempty(validHList)
+        set(validHList, {'OuterPosition'}, ud.oldOuterPositions);
+    end
+    
 
     % remove so we can make a new one below
     delete(supH);

@@ -1,7 +1,7 @@
 function dsT = xlsread_textornum(xlsFileName, sheet)
-%XLSREAD_TEXTORNUM (tools-mh): read xls with header row; convert to struct by col title
+%XLSREADFRAMEMH: read xls with header row; convert to struct by col title
 % 
-%   ds = xlsread_textornum(xlsFileName)
+%   ds = xlsread_textornum(xlsFileName, sheet)
 %
 %   ds is a structure.  The first row is treated as a header line and the
 %   cell contents are used as field names in the structure. 
@@ -9,24 +9,26 @@ function dsT = xlsread_textornum(xlsFileName, sheet)
 %   numeric and string data, a raw cell vector is returned.  If only
 %   numeric data we return a numeric vector, else a text vector.
 %
-%   Notes: should be smarter about parsing dates
+%   Uses MATLAB XLSREAD function, not Apache POI Java library
 %
 %  MH - http://github.com/histed/tools-mh
 
-% histed 120501: created
+% histed 120530: created
 
 if nargin < 2, sheet = ''; end
 
 warning('off', 'MATLAB:xlsread:Mode');
-[num,text,raw] = xlsread(xlsFileName, sheet, '', 'basic');
+[~,~,raw] = xlsread(xlsFileName, sheet);
 
 % remove header line
 dsT.colNames = raw(1,:);
-raw = raw(2:end,:);  text = text(2:end,:);  num = num(2:end,:);
+raw = raw(2:end,:);  
 % convert to a struct
 dsT.nCols = length(dsT.colNames);
 dsT.nRows = size(raw,1);
-nNumCols = size(num,2);
+
+isSomeNum = any(cellfun(@isnumeric,raw), 1);
+isSomeText = any(cellfun(@ischar,raw), 1);
 
 for iC=1:dsT.nCols
     tFN = dsT.colNames{iC};
@@ -40,18 +42,12 @@ for iC=1:dsT.nCols
         tFN = regexprep(tFN, '_$', '');  % misc punct w/ underscores
     end
     
-    if iC > nNumCols
-        isSomeNum = false;
-    else
-        isSomeNum = any(~isnan(num(:,iC)));
-    end
-    isSomeText = any(~cellfun(@isempty,text(:,iC)));
-    if isSomeNum && isSomeText
+    if isSomeNum(iC) && isSomeText(iC)
         tV = raw(:,iC);
-    elseif isSomeNum
-        tV = num(:,iC);
-    else
-        tV = text(:,iC);
+    elseif isSomeNum(iC)
+        tV = celleqel2mat_padded(raw(:,iC), NaN);
+    else % text
+        tV = cellstr(raw(:,iC));
     end
         
     dsT.(tFN) = tV(:)';
