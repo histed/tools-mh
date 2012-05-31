@@ -9,35 +9,14 @@ function matOut = cellvect2mat_padded (cellIn, dim, padVal)
 %   This is MUCH faster than CELL2MAT_PADDED when each entry is either the
 %   same size or empty.  It's still not terribly fast.
 %
+%   See also CELLEQEL2MAT_PADDED - which should be used instead.  
+%
 %  MH - http://github.com/histed/tools-mh
 
-assert(isvector(cellIn), 'Only cell vectors are supported now');
+% this is just here for backward compat
 
-if nargin < 2 || isempty(dim), 
-  dim = find(size(cellIn) ~= 1, 1);
-  if isempty(dim), dim=2; end  % handle case where cellIn is a singleton
-end
+assert(isvector(cellIn), 'Only cell vectors are supported now');
+assert(nargin < 2 || isempty(dim), 'dim arg not supported, do your own transposition');
 if nargin < 3, padVal = NaN; end
 
-if isempty(cellIn), matOut = []; return; end
-
-emptyIx = cellfun(@isempty, cellIn);
-if all(emptyIx)
-  matOut = repmat(padVal, size(cellIn));
-  return
-end
-
-firstNonN = find(~emptyIx, 1, 'first');
-tSize = size(cellIn{firstNonN});
-padMat = repmat(padVal, tSize);
-
-[cellIn{emptyIx}] = deal(padMat);
-
-if isempty(dim)
-  dim
-  cellIn
-end
-
-
-matOut = cat(dim, cellIn{:});
-
+matOut = celleqel2mat_padded(cellIn, padVal);

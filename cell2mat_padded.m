@@ -20,10 +20,13 @@ function matOut = cell2mat_padded (cellIn, dim, padVal)
 
 assert(isvector(cellIn), 'Only cell vectors are supported now');
 
+if isempty(cellIn), matOut = []; return; end
+
 if nargin < 2 || isempty(dim), dim = find(size(cellIn) ~= 1, 1); end
 if nargin < 3, padVal = 0; end
 
 nEls = length(cellIn);
+
 
 %% calculate output size
 maxDims = max(cellfun(@ndims, cellIn));
