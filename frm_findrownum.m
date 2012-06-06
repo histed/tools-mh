@@ -10,6 +10,8 @@ function rowN = frm_findrownum(xd, indexCell)
 %
 % histed 120531
 
+debug = false;
+
 desFNames = indexCell(1:2:end);
 desFValues = indexCell(2:2:end);
 
@@ -26,6 +28,15 @@ for iF=1:nFields
         % assume always cell - maybe add other types later?!
         assert(iscell(xd.(tFN)));
         tDIx = cellfun(@(x) isequalwithequalnans(x,tFV), xd.(tFN));
+    end
+    if sum(tDIx) == 0
+        error('Index value matched 0 rows: Field %s, desired value %s', ...
+            tFN, mat2str(tFV));
+    end
+
+    if debug
+        fprintf(1, 'Debug: Field %s val %s, restricted from %d to %d rows (matched %d)\n', ...
+            tFN, mat2str(tFV), sum(desIx), sum(desIx & tDIx), sum(tDIx));
     end
     desIx = desIx & tDIx;
 end
