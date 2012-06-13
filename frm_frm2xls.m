@@ -1,6 +1,8 @@
 function frm_frm2xls(dsT, xlsFileName, sheetNumOrStr)
 %FRM_FRM2XLS: write data frame from FRM_XLS2FRM back to Excel file
 %
+%   FRM_FRM2XLS(dsT, xlsFileName, sheetNumOrStr)
+%
 %   Must call FRM_JAVASETUP first to set up java path w/ POI jar files
 %
 %   See also FRM_*

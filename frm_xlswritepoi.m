@@ -91,9 +91,12 @@ for iR = 1:nRows
             if ischar(tVal)
                 tCell.setCellType(Cell.CELL_TYPE_STRING);
                 tCell.setCellValue(tVal);
-            elseif isnumeric(tVal)
+            elseif isnumeric(tVal) && length(tVal) == 1
                 tCell.setCellType(Cell.CELL_TYPE_NUMERIC);
                 tCell.setCellValue(tVal);
+            elseif isnumeric(tVal) && length(tVal) > 1
+                tCell.setCellType(Cell.CELL_TYPE_STRING)
+                tCell.setCellValue(mat2str(tVal));
             else
                 error('unknown type');
             end
