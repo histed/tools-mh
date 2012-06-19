@@ -1,4 +1,4 @@
-function frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr)
+function frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr, doMatInCellAsText)
 %FRM_XLSWRITEPOI: use Apache POI Java libraries to write excel files w/ type info etc.
 %
 %   Note - empty elements of rawCell are untouched if excel file exists.   
@@ -9,10 +9,11 @@ function frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr)
 %
 %  MH - http://github.com/histed/tools-mh
 
-% notes: if I want to include formulas I probably will have to store them as
-% strings in rawCell...
+% notes: To include formulas, they will likely have to be stored as strings and 
+% we will have to pass in the type mat from frm_xlsreadpoi.m
 
 if nargin < 3, sheetNumOrStr = 1; end
+if nargin < 4, doMatInCellAsText = true; end
 
 import org.apache.poi.ss.usermodel.*;
 
@@ -80,9 +81,8 @@ for iR = 1:nRows
     for iC = 1:nCols
         tVal = rawCell{iR,iC};
         if isempty(tVal)
-            continue
+            continue  % no value, so don't make any Java calls this iteration
         else
-            % only do the cell work if not empty
             tCell = tRow.getCell(iC-1);
             if isempty(tCell)
                 tCell = tRow.createCell(iC-1);
@@ -95,8 +95,12 @@ for iR = 1:nRows
                 tCell.setCellType(Cell.CELL_TYPE_NUMERIC);
                 tCell.setCellValue(tVal);
             elseif isnumeric(tVal) && length(tVal) > 1
-                tCell.setCellType(Cell.CELL_TYPE_STRING)
-                tCell.setCellValue(mat2str(tVal));
+                if doMatInCellAsText
+                    tCell.setCellType(Cell.CELL_TYPE_STRING)
+                    tCell.setCellValue(mat2str(tVal));
+                else
+                    error('Matrix found in cell, and doMatInCellAsText is false');
+                end
             else
                 error('unknown type');
             end
