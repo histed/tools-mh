@@ -29,6 +29,10 @@ xc = frm_constants;
 if isempty(xExt), xExt = '.xlsx'; end
 xlsFileName = fullfile(xPath, [xName xExt]);
 
+if any(xlsFileName == '~')
+    error('Tilde expansion not supported by Java POI library: use USER var or specify full dir');
+end
+
 %% read file if existing, else create
 if exist(xlsFileName, 'file')
     jFH = java.io.FileInputStream(xlsFileName);
