@@ -1,21 +1,56 @@
-function ebH = basicerrorbar(lH, upperLength, lowerLength)
-%BASICERRORBAR (mh): simplest errorbar you can imagine
-%    ebH = basicerrorbar(lineH, upperLength, lowerLength)
+function [ebH whiskerH] = basicerrorbar(lH, upperLength, lowerLength, whiskerLen)
+%BASICERRORBAR (mh): construct errorbars with only line objects
+%    [ebH whiskerH] = basicerrorbar(lineH, upperLength, lowerLength, whiskerLen)
 %  
-%    Main advantage of this over errorbar is that only one plot object is
-%    generated with all of the errorbar lines, so it can be easily modified
+%    Main advantage of this over errorbar is that only line objects are used,
+%    so it can be easily modified
+%
+%    whiskerLen defaults to 0, meaning do not draw whiskers.  Length is in X
+%    axis units.
 %
 % histed 120529 brought in from plotOnlineHist.m
 
-if nargin < 3, lowerLength = upperLength; end
+if nargin < 3 || isempty(lowerLength), lowerLength = upperLength; end
+if nargin < 4, whiskerLen = 0; end
 
-xv = get(lH, 'XData');
-yv = get(lH, 'YData');
-xvals = cat(1, xv, xv, xv);
-yvals = cat(1, yv-lowerLength(:)', yv+upperLength(:)', yv*NaN);
-xvals = reshape(xvals, [1 numel(xvals)]);
-yvals = reshape(yvals, [1 numel(yvals)]);
-ebH = plot(xvals, yvals);
+nB = length(lH);
+lbDims = size(upperLength);
+desND = find(lbDims ~= nB);
+if desND == 1
+    upperLength = upperLength';
+    lowerLength = lowerLength';
+end
 
 
-set(ebH, 'Color', get(lH, 'Color'));
+isLog = strcmp(get(gca, 'XScale'), 'log');
+
+for iB=1:nB
+    xv = get(lH(iB), 'XData');
+    yv = get(lH(iB), 'YData');
+    y0 = yv-lowerLength(iB,:);
+    y1 = yv+upperLength(iB,:);
+
+    xvals = cat(1, xv, xv, xv);
+    yvals = cat(1, y0, y1, yv*NaN);
+    ebH(iB,1) = plot(xvals(:)', yvals(:)');
+
+    if whiskerLen > 0
+        wl = whiskerLen/2;
+        if isLog
+            wl = wl+1;
+            wxvals = cat(1, xv./wl, xv.*wl, xv, xv./wl, xv.*wl, xv);
+        else % linear
+            wxvals = cat(1, xv-wl, xv+wl, xv, xv-wl, xv+wl, xv);
+        end
+        wyvals = cat(1, y0, y0, y0*NaN, y1, y1, y1*NaN);
+        whiskerH(iB,1) = plot(wxvals(:)', wyvals(:)');
+    end
+end
+propName = 'Color';
+if length(lH) > 1, propName = {propName}; end
+set(ebH, propName, get(lH, 'Color'));
+
+if whiskerLen > 0
+    set(whiskerH, {'Color'}, get(lH, 'Color'));
+end
+

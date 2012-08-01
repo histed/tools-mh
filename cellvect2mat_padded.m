@@ -15,7 +15,7 @@ function matOut = cellvect2mat_padded (cellIn, dim, padVal)
 
 % this is just here for backward compat
 
-assert(isvector(cellIn), 'Only cell vectors are supported now');
+assert(isvector(cellIn)||isempty(cellIn), 'Only cell vectors are supported now');
 assert(nargin < 2 || isempty(dim), 'dim arg not supported, do your own transposition');
 if nargin < 3, padVal = NaN; end
 

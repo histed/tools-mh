@@ -14,8 +14,12 @@ function ticklabel_exp2float(axH, axisStr)
 % created: histed 110903
 
 if isempty(axH), axH = gca; end
-if nargin < 2, error('Must specify axisStr'); end
-
+if nargin == 1
+    if ischar(axH)
+        axisStr = axH;
+        axH = gca;
+    elseif nargin < 2, error('Must specify axisStr'); end
+end
 % this util uses a listener to deal with zooms/tick changes
 ticklabelformat(axH, lower(axisStr), '%g');
 

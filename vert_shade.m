@@ -39,33 +39,34 @@ yinp(3,:) = ymax;  % y1
 yinp(4,:) = ymin;  % y0
 yinp(5,:) = ymin;  % y0
 
-if range(colorvals,1) == 0
-    fColor = colorvals;
-else 
-    fColor = 'interp';
-end
-
 % $$$ pH = patch(xinp, yinp, colorvals, ...
 % $$$                 'EdgeColor', 'none', ...
 % $$$                 'FaceColor', fColor, ...
 % $$$                 'Tag', 'vert_shade patch');
-pH = patch(xinp, yinp, colorvals);
+
+    
+pH = patch(xinp, yinp, xinp*0);
 nFaces = length(get(pH, 'Faces'));
+cv = repmat(colorvals(:)', [nFaces 1]);
+% if isvector(colorvals)
+%     if length(colorvals) == 3 || length(colorvals) == 1
+%         % one color for all
+%         cv = repmat(shiftdim(colorvals(:), -2), [nFaces 1]);
+%     elseif length(colorvals) == numx
+%         % indexed color each face
+%         cv = repmat(shiftdim(colorvals(:), [nFaces 1]);
+%     else
+%         error('unknown shape of color input');
+%     end
+% elseif all(size(colorvals) == [numx 3])
+%     % rgb each face
+%     cv = repmat(shiftdim(colorvals, -1), [5 1]);
+% end
+
 set(pH, 'EdgeColor', 'none', ...
-        'FaceColor', 'interp', ...
-        'FaceVertexCData', repmat(colorvals, [nFaces 1]), ...
+        'FaceColor', 'flat', ...
+        'FaceVertexCData', cv, ...
+        'CDataMapping', 'direct', ...
         'Tag', 'vert_shade patch');
 
-% stack to bottom
 anystack(pH, 'bottom');
-% $$$ for i=1:length(pH)
-% $$$     parent = get(pH(i),'Parent');
-% $$$     peers = get(parent, 'Children');
-% $$$     peers = [colvect(peers(peers~=pH(i))); pH(i)];
-% $$$     set(parent, 'Children', peers);
-% $$$     
-% $$$     % also bury for flat 3d plots
-% $$$     %set(pH(i), 'ZData', [-1,-1,-1,-1]);
-% $$$     % bug here, 
-% $$$ end
-
