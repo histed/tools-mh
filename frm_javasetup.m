@@ -44,6 +44,11 @@ xbName = {n0.name};
 assert(length(xbName) == 1, 'bug: xmlbeans jar not found');
 subJavaAddIfMissing(fullfile(d2, xbName{1}));
 
+% add the java stub helper function
+fullNameToThis = which(mfilename);
+tPath = fileparts(fullNameToThis);
+subJavaAddIfMissing(fullfile(tPath, 'java/frm_jcReadXls'));
+
 function subJavaAddIfMissing(tPath)
 jp = javaclasspath;
 if ~any(strcmp(jp, tPath))

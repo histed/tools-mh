@@ -13,63 +13,25 @@ function [rawOut, typeMat] = frm_xlsreadpoi(xlsFileName, sheetNum)
 %
 %  MH - http://github.com/histed/tools-mh
 
+% v2, 120801: move iteration to java code to speed it up.  (each java call in
+% matlab is very slow)
+
 if nargin < 2, sheetNum = 1; end
 
-import org.apache.poi.ss.usermodel.*;
+tObj = frm_jcReadXls(xlsFileName,sheetNum);  % java
+bV = tObj.getCellContents();
 
-if ~exist(xlsFileName, 'file')
-    error('XLS input file not found');
-end
+% unpack outputs
+numMat = bV(1);
+strCell = cell(bV(2));
+typeMat = double(bV(3));
 
-jFH = java.io.FileInputStream(xlsFileName);
-try
-    b0 = Cell.CELL_TYPE_NUMERIC;
-catch
-    error('Java classes not found - did you run xlsjavasetupMH?');
-end
+% make a single cell array
+isNum = ~isnan(numMat);
+isStr = ~cellfun(@isempty, strCell);
+assert(~any(any(isNum & isStr)));
+rawOut = strCell;
+numCell = mat2cell_singleton(numMat);
+rawOut(isNum) = numCell(isNum);
 
-wb = WorkbookFactory.create(jFH);
-nSheets = wb.getNumberOfSheets();
-
-
-tS = wb.getSheetAt(sheetNum-1);
-
-% iter over rows
-rowI = tS.rowIterator();
-while true
-    if rowI.hasNext()
-        tRow = rowI.next();
-    else
-        break;
-    end
-
-    % iter over cells
-    cellI = tRow.cellIterator();
-    while true
-        if cellI.hasNext()
-            tC = cellI.next();
-        else
-            break;
-        end
-
-        iR = tC.getRowIndex();
-        iC = tC.getColumnIndex();
-
-        tType = tC.getCellType();
-        switch tType
-            case {Cell.CELL_TYPE_NUMERIC, Cell.CELL_TYPE_BOOLEAN}
-                tVal = tC.getNumericCellValue();
-            case Cell.CELL_TYPE_STRING
-                tVal = char(tC.getStringCellValue());
-            case Cell.CELL_TYPE_BLANK
-                tVal = [];
-            otherwise
-                error('Unknown type %d', tType)
-        end
-
-        typeC{iR+1,iC+1} = tType;
-        cOut{iR+1,iC+1} = tVal;
-    end
-end
-rawOut = cOut;
-typeMat = celleqel2mat_padded(typeC, Cell.CELL_TYPE_BLANK);
+%typeMat = celleqel2mat_padded(typeC, Cell.CELL_TYPE_BLANK);
