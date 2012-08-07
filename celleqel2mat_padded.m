@@ -1,6 +1,6 @@
-function matOut = cellsingle2mat_padded (cellIn, padVal)
-%CELLSINGLE2MAT_PADDED (ps-utils): Convert cell mat of equal size els to matrix
-%   MATOUT = CELLSINGLE2MAT_PADDED (CELLIN, DIM, PADVAL)
+function matOut = celleqel2mat_padded (cellIn, padVal)
+%CELLEQEL2MAT_PADDED (ps-utils): Convert cell mat of equal size els to matrix
+%   MATOUT = CELLEQEL2MAT_PADDED (CELLIN, PADVAL)
 %   cellIn - Each element must be the same size as every other or empty
 %   padval defaults to NaN
 %
@@ -25,6 +25,10 @@ padMat = repmat(padVal, tSize);
 
 [cellIn{emptyIx}] = deal(padMat);
 
+w = warning('off', 'MATLAB:nonIntegerTruncatedInConversionToChar');
 matOut = cat(1, cellIn{:});
-matOut = reshape(matOut, size(cellIn));
+warning(w);
+
+outSize = tSize .* size(cellIn);
+matOut = reshape(matOut, outSize);
 

@@ -59,7 +59,21 @@ for iField = 1:nFields
         end
     end
 
-    outStruct.(tName) = cat(tDim, inStruct.(tName));
+    try
+        outStruct.(tName) = celleqel2mat_padded({inStruct.(tName)});
+    catch err
+        switch err.identifier
+            case {'MATLAB:catenate:dimensionMismatch', ...
+                    'MATLAB:UnableToConvert'}
+                % leave as a cell
+                outStruct.(tName) = {inStruct.(tName)};
+            otherwise
+                disp(sprintf('Unknown error %s', err.identifier));
+                % LOOK INTO THIS to see if it's real
+                rethrow(err);
+        end
+    end
+    
 end
 
 

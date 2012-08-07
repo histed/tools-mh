@@ -8,6 +8,8 @@ function singleStruct = structarray2singleton(structArrIn)
 %
 %  MH - http://github.com/histed/tools-mh
 
+error('should use struct_vect2singleton');
+
 anonCell = struct2cell(structArrIn);
 fNames = fieldnames(structArrIn);
 anonCellSize = size(anonCell);
