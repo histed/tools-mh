@@ -53,7 +53,13 @@ for iC=1:dsT.nCols
     %if strcmp(tFN, 'DateTimeStarted'), keyboard, end
 
     if isSomeNum(iC) && isSomeText(iC)
+        % hack for now - convert numeric to text. 
+        % mh 120801
+        %tV = raw(:,iC);
         tV = raw(:,iC);
+        numIx = typeMat(2:end,iC) == xc.typeNums.NUMERIC;
+        tV(numIx) = cellstr(num2str(cat(1,tV{numIx})));
+        warning('converting partial num/text field to all text: right decision?');
     elseif isSomeNum(iC) && ~isSomeText(iC)
         tV = celleqel2mat_padded(raw(:,iC), NaN);
     elseif ~isSomeNum(iC) && ~isSomeText(iC)

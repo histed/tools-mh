@@ -3,7 +3,9 @@ function rowN = frm_findrownum(xd, indexCell, varargin)
 %
 %   rowN = frm_findrownum(xd, indexCell, [options])
 %
-%   Find the unique row matching the index fields.
+%   Find the unique row(s) matching the index fields.
+%   To specify multiple rows make the index values vectors/cell vectors
+%  
 %   Options: 
 %        IgnoreMissing: true: return NaN if not found; 
 %                             false (default): raise error
@@ -54,8 +56,17 @@ for iN = 1:nOut
             tDIx = tFV == xd.(tFN);
         else
             % assume always cell - maybe add other types later?!
-            assert(iscell(xd.(tFN)));
-            tDIx = cellfun(@(x) isequalwithequalnans(x,tFV), xd.(tFN));
+            %assert(iscell(xd.(tFN)));
+            %tDIx = cellfun(@(x) isequalwithequalnans(x,tFV), xd.(tFN));
+            %%% equally slow %tDIx = cellfun(@(x) isequal(x,tFV), xd.(tFN));
+                        
+            tField = xd.(tFN);
+            assert(iscell(tField));
+            if isa(tFV, 'char')
+                tDIx = strcmp(tField, tFV);
+            elseif isa(tFV, 'double')
+                tDIx = strcmp(tField, char(tFV));
+            end
         end
         if sum(tDIx) == 0 && ~uo.IgnoreMissing
             error('Index value matched 0 rows: Field %s, desired value %s', ...
