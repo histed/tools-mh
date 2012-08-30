@@ -27,10 +27,10 @@ for iD = 1:nDes
         else
             tF = xd.(tFN);
             if iscell(tF)
-                if nDes == 1  % special case cell singleton
+                if nDes == 1 % special case cell singleton
                     xNd(1).(tFN) = tF{desN};
                 else
-                    xNd(1).(tFN){iD} = tF(desN);
+                    xNd(1).(tFN)(iD) = tF(desN);
                 end
                     
             elseif isnumeric(tF)
