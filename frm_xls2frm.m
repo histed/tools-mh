@@ -58,8 +58,11 @@ for iC=1:dsT.nCols
         %tV = raw(:,iC);
         tV = raw(:,iC);
         numIx = typeMat(2:end,iC) == xc.typeNums.NUMERIC;
-        tV(numIx) = cellstr(num2str(cat(1,tV{numIx})));
-        warning('converting partial num/text field to all text: right decision?');
+        desIx = numIx & ~emptyIx(:,iC);
+        if sum(desIx)>0
+            tV(desIx) = cellstr(num2str(cat(1,tV{desIx})));
+            warning('converting partial num/text field to all text: right decision?');
+        end
     elseif isSomeNum(iC) && ~isSomeText(iC)
         tV = celleqel2mat_padded(raw(:,iC), NaN);
     elseif ~isSomeNum(iC) && ~isSomeText(iC)

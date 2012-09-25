@@ -57,7 +57,7 @@ outFileName = fullfile(cacheDir, ['diskcache2_' cacheKeyStr '.mat']);
 
 switch lower(opStr)
   case 'set'
-    save(outFileName, 'inData');
+    save(outFileName, 'inData', '-v7.3');  % v7.3, support >2GB
     dirS = dir(outFileName);
     w = whos('inData');
     if ~quiet

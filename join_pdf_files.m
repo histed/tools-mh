@@ -1,5 +1,5 @@
 function join_pdf_files(inputNameCellstr, outputName, doDeleteInput);
-%JOIN_PDF_FILES(inputNameCellstr, outputName)
+%JOIN_PDF_FILES(inputNameCellstr, outputName, doDeleteInput)
 %
 %   inputNameCellstr can be a pattern
 %   uses an adhoc method on each platform
@@ -26,9 +26,11 @@ if isunix
     end
 
     % above will raise error on problems, so this is safe
-    [s,w] = unix(sprintf('rm %s', inputNamePat));
-    if s~=0
-        error('%s: rm error: result %d message %s', mfilename, s, w);
+    if doDeleteInput
+        [s,w] = unix(sprintf('rm %s', inputNamePat));
+        if s2abcd~=0
+            error('%s: rm error: result %d message %s', mfilename, s, w);
+        end
     end
 end
 

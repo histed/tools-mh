@@ -37,7 +37,7 @@ figH = get(axH, 'Parent');
 hold on;
 
 xTick = get(axH, 'XTick');
-yTick = get(axH, 'YTick'); 
+yTick = get(axH, 'YTick');
 
 defs = { 'XLength', chop(xTick(end)-xTick(end-1),1), ...
          'YLength', chop(yTick(end)-yTick(end-1),1), ...
@@ -70,9 +70,17 @@ else
       case 'NorthWest'
         centerPosXY = [xTick(1) yTick(end-1)];        
       case 'NorthEast'
-        centerPosXY = [xTick(end-1) yTick(end-1)];        
-      otherwise
-        error('Invalid location value %s', uo.Location)
+        centerPosXY = [xTick(end-1) yTick(end-1)];    
+      case 'South'
+        centerPosXY = [(xTick(1)+xTick(end-1))/2 yTick(1)];
+      case 'North'      
+        centerPosXY = [(xTick(1)+xTick(end-1))/2 yTick(end-1)];
+      case 'West'
+        centerPosXY = [xTick(1) (yTick(1)+yTick(end-1))/2];        
+      case 'East'
+        centerPosXY = [xTick(end-1) (yTick(1)+yTick(end-1))/2];
+        otherwise
+            error('Invalid location value %s', uo.Location)
     end
 end
     
