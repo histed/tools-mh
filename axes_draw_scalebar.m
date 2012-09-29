@@ -53,12 +53,13 @@ defs = { 'XLength', chop(xTick(end)-xTick(end-1),1), ...
        };
 
 uo = stropt2struct(stropt_defaults(defs, varargin));
+oIn = stropt2struct(varargin);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% set center position
 if ~isempty(uo.CenterPosXY)
-    assert(isempty(uo.Location), ...
+    assert(~isfield(oIn, 'Location'), ...
            'Cannot specify both CenterPosXY and Location');
     centerPosXY = uo.CenterPosXY;
 else
@@ -84,7 +85,6 @@ else
     end
 end
     
-
 % first turn off normal labels
 set(axH, 'Visible', 'off');
 % if set to manual, scale bar may be clipped 

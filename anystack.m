@@ -25,6 +25,9 @@ assert(all(parentMat == parentMat(1)), ...
 
 pChildren = get(parentMat(1), 'Children');
 
+inHandles = inHandles(:);
+pChildren = pChildren(:);
+
 assert(all(ismember(inHandles, pChildren)), ...
        'Desired handles not found in parent''s children');
 

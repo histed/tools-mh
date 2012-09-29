@@ -1,10 +1,11 @@
-function ppStr = pp_hash_key(inKey, maxChars)
+function ppStr = pp_hash_key(inKey, maxChars, doHex)
 %PP_HASH_KEY (ps-utils): pretty print a hash key to a str for display
 %
 %  MH - http://github.com/histed/tools-mh
 
 if isvector(inKey), inKey = rowvect(inKey); end
 if iscell(inKey) && length(inKey) == 1, inKey = inKey{1}; end
+if nargin < 3, doHex = false; end
 
 % unwrap cell vectors with one element
 if iscell(inKey) 
@@ -15,6 +16,12 @@ if iscell(inKey)
         end
     end
 end
+
+if doHex
+    ppStr = sprintf('%x', inKey);
+    return
+end
+
 
 
 % use matlab's display routine

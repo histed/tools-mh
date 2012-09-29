@@ -2,7 +2,9 @@ function hash = hash_recurse(inArr)
 %HASH_RECURSE (ps-utils): MD5 hash arrays, handles cell/struct recursively
 %   hash = HASH_RECURSE(inArr)
 %
-%   Note that this is slow, don't call it in a loop.
+%   hash is a 16-element vector of uint8 values
+%
+%   This is slow, don't call it in a loop.
 %
 %  MH - http://github.com/histed/tools-mh
 
