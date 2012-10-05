@@ -6,7 +6,8 @@ function frm_javasetup(poiPath);
 %   example:
 %      frm_javasetup('~/path/to/poi-3.8')
 %
-%   This will automatically add the required jar files to the java path.
+%   This will automatically add the required jar files to the java path, including the Apache POI library 
+%     (used for lowlevel XLS/XLSX reading and writing) and frm_ java subroutines called by the .m files.
 %
 %  MH - http://github.com/histed/tools-mh
 

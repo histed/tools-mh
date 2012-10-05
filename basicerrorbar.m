@@ -32,6 +32,8 @@ for iB=1:nB
 
     xvals = cat(1, xv, xv, xv);
     yvals = cat(1, y0, y1, yv*NaN);
+
+    hold on;
     ebH(iB,1) = plot(xvals(:)', yvals(:)');
 
     if whiskerLen > 0
@@ -49,8 +51,10 @@ end
 propName = 'Color';
 if length(lH) > 1, propName = {propName}; end
 set(ebH, propName, get(lH, 'Color'));
+set(ebH, 'Tag', 'basicerrorbar_stem');
 
 if whiskerLen > 0
-    set(whiskerH, {'Color'}, get(lH, 'Color'));
+    set(whiskerH, propName, get(lH, 'Color'));
+    set(whiskerH, 'Tag', 'basicerrorbar_whisker');
 end
 
