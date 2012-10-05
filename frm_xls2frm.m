@@ -1,13 +1,16 @@
-function dsT = frm_xls2frm(xlsFileName, sheet)
+function dsT = frm_xls2frm(xlsFileName, sheet, textFieldNames)
 %FRM_XLS2FRM: read xls with header row; convert to struct by col title
 % 
-%   ds = FRM_XLS2FRM(xlsFileName, sheet)
+%   ds = FRM_XLS2FRM(xlsFileName, sheet, textFieldNames)
 %
 %   ds is a structure.  The first row is treated as a header line and the
 %   cell contents are used as field names in the structure. 
 %   Each field is a vector from the column contents.  If there is mixed
 %   numeric and string data, a raw cell vector is returned.  If only
 %   numeric data we return a numeric vector, else a text vector.
+%
+%   if textFieldNames is specified, convert the columns with these names to text even if found 
+%      to be all numeric data
 %
 %   Uses Apache POI Java library for Excel file processing
 %
@@ -18,6 +21,7 @@ function dsT = frm_xls2frm(xlsFileName, sheet)
 % histed 120530: created
 
 if nargin < 2, sheet = 1; end
+if nargin < 3, textFieldNames = []; end
 
 xc = frm_constants;
 
@@ -61,7 +65,7 @@ for iC=1:dsT.nCols
         desIx = numIx & ~emptyIx(:,iC);
         if sum(desIx)>0
             tV(desIx) = cellstr(num2str(cat(1,tV{desIx})));
-            warning('converting partial num/text field to all text: right decision?');
+            %warning('converting partial num/text field to all text: right decision?');
         end
     elseif isSomeNum(iC) && ~isSomeText(iC)
         tV = celleqel2mat_padded(raw(:,iC), NaN);
@@ -77,5 +81,26 @@ for iC=1:dsT.nCols
         
     dsT.(tFN) = tV(:)';
 end
+
+% explicit text conversion
+if ~isempty(textFieldNames)
+    nF = length(textFieldNames);
+    for iF = 1:nF
+        tFN = textFieldNames{iF};
+        if ~isfield(dsT, tFN)
+            error('requested textFieldName %s not found in data', tFN);
+        end
+        if isnumeric(dsT.(tFN))
+            % convert,
+            dsT.(tFN) = cellstr(num2str(dsT.(tFN)));
+        else
+            assert(iscell(dsT.(tFN)), 'fields must be numeric or cell');
+        end
+    end
+end
+
+        
+            
+
 dsT.colNames = dsT.colNames(~removeColsIx);
 dsT.nCols = length(dsT.colNames);

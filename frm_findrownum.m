@@ -21,6 +21,16 @@ uo = stropt2struct(stropt_defaults(userDefs, varargin));
 
 debug = 0;
 
+% firstpass check if any data
+if xd.nRows == 0
+    if uo.IgnoreMissing
+        rowN = NaN;
+        return
+    else
+        error('No rows in data - no rows can be matched');
+    end
+end
+
 desFNames = indexCell(1:2:end);
 desFValues = indexCell(2:2:end);
 

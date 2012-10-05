@@ -16,7 +16,11 @@ function [rawOut, typeMat] = frm_xlsreadpoi(xlsFileName, sheetNum)
 % v2, 120801: move iteration to java code to speed it up.  (each java call in
 % matlab is very slow)
 
-if nargin < 2, sheetNum = 1; end
+if nargin < 2 || isempty(sheetNum), sheetNum = 1; end
+
+if ~exist(xlsFileName, 'file')
+    error('XLS file not found: %s', xlsFileName);
+end
 
 tObj = frm_jcReadXls(xlsFileName,sheetNum);  % java
 bV = tObj.getCellContents();
