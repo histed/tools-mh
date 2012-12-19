@@ -10,13 +10,26 @@ function matOut = cellvect2mat_padded (cellIn, dim, padVal)
 %   same size or empty.  It's still not terribly fast.
 %
 %   See also CELLEQEL2MAT_PADDED - which should be used instead.  
+%   This is here only for backward compat
 %
 %  MH - http://github.com/histed/tools-mh
 
-% this is just here for backward compat
 
 assert(isvector(cellIn)||isempty(cellIn), 'Only cell vectors are supported now');
-assert(nargin < 2 || isempty(dim), 'dim arg not supported, do your own transposition');
+%assert(nargin < 2 || isempty(dim), 'dim arg not supported, do your
+%own transposition');
+if nargin < 2, dim = []; end
 if nargin < 3, padVal = NaN; end
 
+if nargin > 1 
+  % pass for now, can implement warning later MH 121218
+  %warning('dim arg ignored; use celleqel2mat_padded.m');
+end
+
 matOut = celleqel2mat_padded(cellIn, padVal);
+if isvector(matOut) && size(matOut,1)>1
+  matOut = matOut';
+end
+
+
+

@@ -3,18 +3,20 @@ function matOut = celleqel2mat_padded (cellIn, padVal, castOutputType)
 %   MATOUT = CELLEQEL2MAT_PADDED (CELLIN, PADVAL)
 %   cellIn - Each element must be the same size as every other or empty
 %   padval defaults to NaN
-%   castOutputType: if empty, uses matlab default promotion rules (if any
-%       integer, make the whole array an int array.)
-%       To cast all elements, pass 'double', 'int32' etc.
+%   castOutputType: type of output matrix
+%       'double' {default}; 'int32', 'int64' 
+%
+%   Note: the dimension to concatenate is given by the shape of the
+%   cell array.  A cell that is size [2,1] will be concatenated along
+%   the first dim, and one that is [1,2] along the second.
 %
 %   This is MUCH faster than CELL2MAT_PADDED when each entry is either the
 %   same size or empty.  It's still not terribly fast.
-
 %
 %  MH - http://github.com/histed/tools-mh
 
 if nargin < 2, padVal = NaN; end
-if nargin < 3, castOutputType = []; end
+if nargin < 3, castOutputType = 'double'; end
 
 if isempty(cellIn), matOut = []; return; end
 
@@ -31,12 +33,10 @@ padMat = repmat(padVal, tSize);
 [cellIn{emptyIx}] = deal(padMat);
 
 w = warning('off', 'MATLAB:nonIntegerTruncatedInConversionToChar');
-if isempty(castOutputType)
-  matOut = cat(1, cellIn{:});
-else
-  castFH = str2func(castOutputType);
-  matOut = cellfun(castFH, cellIn);
-end
+
+castFH = str2func(castOutputType);
+matOut = cellfun(castFH, cellIn);
+
 warning(w);
 
 outSize = tSize .* size(cellIn);
