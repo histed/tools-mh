@@ -30,7 +30,7 @@ xc = frm_constants;
 % remove header line
 dsT.colNames = raw(1,:);
 raw = raw(2:end,:);  
-% convert to a structe
+% convert to a struct
 dsT.nCols = length(dsT.colNames);
 dsT.nRows = size(raw,1);
 
@@ -55,6 +55,7 @@ for iC=1:dsT.nCols
         tFN = regexprep(tFN, '_$', '');  % misc punct w/ underscores
     end
     %if strcmp(tFN, 'DateTimeStarted'), keyboard, end
+    %if strcmp(tFN, 'b2OneRampExtraConstantLengthMs'), keyboard, end
 
     if isSomeNum(iC) && isSomeText(iC)
         % hack for now - convert numeric to text. 
@@ -91,8 +92,8 @@ if ~isempty(textFieldNames)
             error('requested textFieldName %s not found in data', tFN);
         end
         if isnumeric(dsT.(tFN))
-            % convert,
-            dsT.(tFN) = cellstr(num2str(dsT.(tFN)));
+            % convert
+            dsT.(tFN) = cellstr(num2str(dsT.(tFN)'))';
         else
             assert(iscell(dsT.(tFN)), 'fields must be numeric or cell');
         end
