@@ -50,6 +50,8 @@ defs = { 'XLength', chop(xTick(end)-xTick(end-1),1), ...
          'YNumFmtStr', '%g', ...         
          'XLabel', '', ...
          'YLabel', '', ...
+         'XLabelSide', 'bottom', ...
+         'YLabelSide', 'left',
        };
 
 uo = stropt2struct(stropt_defaults(defs, varargin));
@@ -107,21 +109,44 @@ end
 
 
 % label text
-tYPos = centerPosXY + [-uo.XLength/10 uo.YLength/2 ];
-tXPos = centerPosXY + [uo.XLength/2  -uo.YLength/10];
+switch lower(uo.YLabelSide)
+    case 'left'
+        tYPos = centerPosXY + [-uo.XLength/10 uo.YLength/4 ];
+        yHAlign = 'right';
+    case 'right'
+        tYPos = centerPosXY + [+uo.XLength/7 uo.YLength/2 ];
+        yHAlign = 'left';
+    otherwise
+        error('Invalid value for YLabelSide: %s', uo.YLabelSide);
+end
+switch lower(uo.XLabelSide)
+    case 'bottom'
+        tXPos = centerPosXY + [uo.XLength/2  -uo.YLength/10];
+        xVAlign = 'top';
+    case 'top'
+        tXPos = centerPosXY + [uo.XLength/2  +uo.YLength/7];
+        xVAlign = 'bottom';
+    otherwise
+        error('Invalid value for YLabelSide: %s', uo.YLabelSide);
+end
+
+
+
+
+
 xStr = [sprintf(uo.XNumFmtStr,xLen) ' ' uo.XLabel];
 yStr = [sprintf(uo.YNumFmtStr,yLen) ' ' uo.YLabel];
 
 if uo.XLength > 0
     tH(1) = text(tXPos(1), tXPos(2), xStr, ...
-                 'VerticalAlignment', 'top', ...
+                 'VerticalAlignment', xVAlign, ...
                  'HorizontalAlignment', 'center');
 end
 
 if uo.YLength > 0
     tH(2) = text(tYPos(1), tYPos(2), yStr, ...
-                 'VerticalAlignment', 'middle', ...
-                 'HorizontalAlignment', 'right');
+                 'VerticalAlignment', 'bottom', ...
+                 'HorizontalAlignment', yHAlign);
 end
     
 if ~isempty(uo.TextStyle)
