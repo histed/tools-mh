@@ -64,7 +64,8 @@ for iField = 1:nFields
     catch err
         switch err.identifier
             case {'MATLAB:catenate:dimensionMismatch', ...
-                    'MATLAB:UnableToConvert'}
+                    'MATLAB:UnableToConvert', ...
+                    'MATLAB:cellfun:NotAScalarOutput' }
                 % leave as a cell
                 outStruct.(tName) = {inStruct.(tName)};
             otherwise
