@@ -15,7 +15,10 @@ function rowN = frm_findrownum(xd, indexCell, varargin)
 %
 % histed 120531
 
-userDefs = { 'IgnoreMissing', false }; 
+userDefs = { ...
+    'IgnoreMissing', false, ...
+    'AllowMultiple', false, ...  
+    };
 
 uo = stropt2struct(stropt_defaults(userDefs, varargin));
 
@@ -37,18 +40,19 @@ desFValues = indexCell(2:2:end);
 nFields = length(desFNames);
 
 % convert chars to singleton cells
-strIx = cellfun(@ischar, desFValues);
+strIx = cellfun(@ischar, desFValues) | cellfun(@isempty, desFValues);
 newC = cellfun(@(x) {{x}}, desFValues(strIx));
 desFValues(strIx) = newC;
 
 nOut = length(desFValues{1});
 rowNOut = nan([1 nOut]);
 
+%: allow empties to find unfilled cells now MH 130123
 % error checking
-zeroIx = cellfun(@length, desFValues)==0;
-if any(zeroIx)
-    error('Missing value in input: %s has length zero', desFNames{find(zeroIx,1)});
-end
+% zeroIx = cellfun(@length, desFValues)==0;
+% if any(zeroIx)
+%     error('Missing value in input: %s has length zero', desFNames{find(zeroIx,1)});
+% end
 
 
 for iN = 1:nOut
@@ -62,7 +66,9 @@ for iN = 1:nOut
             tFV = tFV{1};
         end
 
-        if isnumeric(xd.(tFN))
+        if isempty(tFV)
+            tDIx = cellfun(@isempty, xd.(tFN));
+        elseif isnumeric(xd.(tFN))
             tDIx = tFV == xd.(tFN);
         else
             % assume always cell - maybe add other types later?!
@@ -106,11 +112,15 @@ for iN = 1:nOut
             rowN(iN) = NaN;
             continue
         end
+    elseif nD > 1
+        if uo.AllowMultiple
+            assert(nOut == 1, 'if AllowMultiple is true, each input field match must be length 1');
+            rowN = find(desIx);
+        else
+            error('More than one match found - index fields must be unique');
+        end
+    elseif nD == 1
+        rowN(iN) = find(desIx);
     end
-    if nD >= 2
-        error('More than one match found - index fields must be unique');
-    end
-
-    rowN(iN) = find(desIx);
 end
 %assert(~any(isnan(rowN)));
