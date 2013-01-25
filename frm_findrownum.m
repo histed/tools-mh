@@ -61,29 +61,57 @@ for iN = 1:nOut
         tFN = desFNames{iF};
         tFV = desFValues{iF};
 
-        tFV = tFV(iN);
-        if iscell(tFV) && length(tFV) == 1
-            tFV = tFV{1};
+        % deal with arrays of inputs; take just one element
+        if isnumeric(tFV) && length(tFV) > 1
+            % input is a vector, take just one element
+            assert(length(tFV) == nOut, 'Non matching input columns');
+            tFV = tFV(iN);
+        elseif iscell(tFV)
+            assert(length(tFV) == nOut, 'Non matching input columns');
+            tFV = tFV{iN};
         end
 
-        if isempty(tFV)
-            tDIx = cellfun(@isempty, xd.(tFN));
+        assert( ( isempty(tFV) ...
+            || ( (isnumeric(tFV)|isa(tFV, 'function_handle')) && length(tFV)==1) ...
+            || ischar(tFV) ), ...
+            'bug: only deals with singletons below');
+        
+        comparisonType = '';
+        compFn = [];
+        
+        % choose comparison based on rows
+        if iscell(xd.(tFN))
+            comparisonType = 'cell';
         elseif isnumeric(xd.(tFN))
-            tDIx = tFV == xd.(tFN);
+            comparisonType = 'equals';
         else
-            % assume always cell - maybe add other types later?!
-            %assert(iscell(xd.(tFN)));
-            %tDIx = cellfun(@(x) isequalwithequalnans(x,tFV), xd.(tFN));
-            %%% equally slow %tDIx = cellfun(@(x) isequal(x,tFV), xd.(tFN));
-                        
-            tField = xd.(tFN);
-            assert(iscell(tField));
-            if isa(tFV, 'char')
-                tDIx = strcmp(tField, tFV);
-            elseif isa(tFV, 'double')
-                tDIx = strcmp(tField, char(tFV));
-            end
+            error('Invalid column type');
         end
+        
+        % choose compfn based on input type
+        if isa(tFV, 'function_handle')
+            compFn = tFV;
+        elseif isnan(tFV)
+            compFn = @isnan;
+        elseif isempty(tFV)
+            compFn = @isempty;
+            if isnumeric(xd.(tFN))
+                error('Looking for empty in numeric array: probably want NaN instead');
+            end
+        elseif ischar(tFV);
+            compFn = @(x) strcmp(tFV, char(x));
+        else
+            compFn = @(x) eq(tFV, x);  % hopefully I didn't miss a case
+        end
+
+        % do comparison
+        if strcmp(comparisonType, 'cell')
+            tDIx = cellfun(compFn, xd.(tFN));
+        else
+            tDIx = feval(compFn, xd.(tFN));
+        end
+        
+        % check for errs
         if sum(tDIx) == 0 && ~uo.IgnoreMissing
             error('Index value matched 0 rows: Field %s, desired value %s', ...
                 tFN, mat2str(tFV));
@@ -117,7 +145,7 @@ for iN = 1:nOut
             assert(nOut == 1, 'if AllowMultiple is true, each input field match must be length 1');
             rowN = find(desIx);
         else
-            error('More than one match found - index fields must be unique');
+            error('More than one match found and AllowMultiple is false');
         end
     elseif nD == 1
         rowN(iN) = find(desIx);
