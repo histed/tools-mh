@@ -17,8 +17,9 @@ fNames = fieldnames(dsT);
 removeIx = ismember(fNames, {'colNames', 'nRows', 'nCols'});
 fNames = fNames(~removeIx);
 tColNames = fNames;
-tColNames = regexprep(tColNames, '([A-Z])', ' $1');
-tColNames = regexprep(tColNames, '^ ', '');  % remove any leading spaces
+tColNames = regexprep(tColNames, '([A-Z])', ' $1'); % add spaces before each capital
+tColNames = regexprep(tColNames, '([0-9]*)', ' $1');  % add spaces before runs of numbers
+tColNames = regexprep(tColNames, '^ ', '');  % remove any leading spaces; easier to do this than use lookbehind
 
 %% create the raw cell matrix
 nCols = length(fNames);
