@@ -58,9 +58,10 @@ for iC=1:dsT.nCols
     %if strcmp(tFN, 'b2OneRampExtraConstantLengthMs'), keyboard, end
 
     if isSomeNum(iC) && isSomeText(iC)
-        % hack for now - convert numeric to text. 
-        % mh 120801
-        %tV = raw(:,iC);
+        % hack for now - convert all numeric elements to text MH 120801
+        % MH 130125: This mainly works, we may want to do a better job of allowing caller 
+        %  to do explicit casting (ie. the textFieldNames input)
+
         tV = raw(:,iC);
         numIx = typeMat(2:end,iC) == xc.typeNums.NUMERIC;
         desIx = numIx & ~emptyIx(:,iC);
@@ -68,6 +69,10 @@ for iC=1:dsT.nCols
             tV(desIx) = cellstr(num2str(cat(1,tV{desIx})));
             %warning('converting partial num/text field to all text: right decision?');
         end
+        
+        % convert empty numeric matrices to string
+        desIx = cellfun(@isempty, tV);
+        [tV{desIx}] = deal('');
     elseif isSomeNum(iC) && ~isSomeText(iC)
         tV = celleqel2mat_padded(raw(:,iC), NaN);
     elseif ~isSomeNum(iC) && ~isSomeText(iC)
