@@ -2,7 +2,7 @@ function outD = disk_cache2(opStr, varargin)
 % DISK_CACHE2 (mh-tools) cache data to disk as identifiable mat files, specify directory
 %
 %   diskCache2('get', cacheKeyStr, cacheDir, allowMissing)
-%   diskCache2('set', data, cacheKeyStr, cacheDir, quietStr)
+%   diskCache2('set', data, cacheKeyStr, cacheDir, quietStr, doCompress)
 %
 %   You are responsible for creating cacheKeyStr and making sure it's unique
 %
@@ -13,9 +13,9 @@ function outD = disk_cache2(opStr, varargin)
 switch lower(opStr)
   case 'set'
     argC = varargin;
-    nDesArgs = 4;
+    nDesArgs = 5;
     if length(varargin) < nDesArgs, varargin{nDesArgs} = []; end % pad
-    [inData, cacheKeyStr, cacheDir, quietStr] = deal(varargin{1:nDesArgs});
+    [inData, cacheKeyStr, cacheDir, quietStr, doCompress] = deal(varargin{1:nDesArgs});
 
     % complete empty
     if (length(quietStr)==1 && quietStr == true) || strcmpi(quietStr, 'quiet')
@@ -25,6 +25,7 @@ switch lower(opStr)
     else 
         error('bad value for quietStr: %s', mat2str(quietStr));
     end
+    if isempty(doCompress), doCompress=true; end
 
   
   case 'get'
@@ -50,14 +51,18 @@ if isempty(cacheDir)
     cacheDir = getTmpfile;
 end
 
-
+if ~exist(cacheDir, 'file'), mkdir(cacheDir); end
 
 % use keystr directly
 outFileName = fullfile(cacheDir, ['diskcache2_' cacheKeyStr '.mat']);
 
 switch lower(opStr)
   case 'set'
-    save(outFileName, 'inData', '-v7.3');  % v7.3, support >2GB
+    if doCompress
+        save(outFileName, 'inData', '-v7.3');  % v7.3, support >2GB
+    else
+        save(outFileName, 'inData', '-v6');  % <2GB but uncompressed
+    end
     dirS = dir(outFileName);
     w = whos('inData');
     if ~quiet

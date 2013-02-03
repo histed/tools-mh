@@ -8,6 +8,7 @@ function legendShrinkLines(legH, pctShrink)
 
 %% test
 lH = findobj(legH, 'Type', 'line');
+if isempty(lH), error('No legend lines found - may be patches etc.'); end
 
 xdC = get(lH, 'XData');  % all lines used for drawing have len 2
 legLineIx = cellfun(@(x) length(x)==2, xdC);
