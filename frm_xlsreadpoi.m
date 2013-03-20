@@ -20,6 +20,8 @@ if nargin < 2 || isempty(sheetNum), sheetNum = 1; end
 
 if ~exist(xlsFileName, 'file')
     error('XLS file not found: %s', xlsFileName);
+elseif ~isempty(strfind(xlsFileName, '~/'))
+    error('Java does not allow tilde expansion in filename: specify home dir directly');
 end
 
 tObj = frm_jcReadXls(xlsFileName,sheetNum);  % java

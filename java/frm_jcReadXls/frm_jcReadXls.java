@@ -19,7 +19,7 @@ public class frm_jcReadXls {
 		try {
 			jFH = new FileInputStream(name);	
 		} catch (FileNotFoundException exc) {
-			System.out.println("crap");
+			System.out.println("File not found");
 		}
 		
 		sheetNum = inSheetNum;
