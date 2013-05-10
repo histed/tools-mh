@@ -28,9 +28,9 @@ if nargin<3 || isempty(unit), unit=1; end
 if nargin < 4, chopType = 'round'; end
 
 % Deal with numbers and numbers <= 0.
-X=abs(Xin) + (Xin==0);
+X=abs(Xin) + cast(Xin==0, class(Xin));
 [nx,mx] = size(X);
-exponent=unit.*((10*ones(nx,mx)).^(floor(log10(X))-n+1));
+exponent=unit.*((10*ones(nx,mx)).^(floor(log10(double(X)))-n+1));
 switch chopType
   case 'round'
     X=round(X./exponent).*exponent;
@@ -40,4 +40,5 @@ switch chopType
     X=floor(X./exponent).*exponent;
 end
 % Put back sign and zeros
-X=sign(Xin).*X.*(Xin~=0);
+X=sign(Xin).*X.*cast(Xin~=0, class(Xin));
+
