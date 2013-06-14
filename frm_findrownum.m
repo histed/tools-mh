@@ -96,7 +96,7 @@ for iN = 1:nOut
         elseif isempty(tFV)
             compFn = @isempty;
             if isnumeric(xd.(tFN))
-                error('Looking for empty in numeric array: probably want NaN instead');
+                error('Looking for empty in numeric array: look for NaN or make column cell/str');
             end
         elseif ischar(tFV);
             compFn = @(x) strcmp(tFV, char(x));
