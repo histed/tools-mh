@@ -1,5 +1,5 @@
 function matOut = cell2mat_padded (cellIn, dim, padVal)
-%CELL2MAT_PADDED (ps-utils): Convert cell vector of unequal size els to matrix
+%CELL2MAT_PADDED (ps-utils): Convert cell vector to matrix: DEPRECATED, use cell2matpad
 %  NOTE: This is deprecated and cell2matpad should be used instead: that
 %  function drops the dim param and deals with matrices in cells of arbitrary
 %  size and dim.  - 130613

@@ -1,5 +1,5 @@
 function matOut = cell2matpad (cellIn, padVal)
-%CELL2MATPAD (tools-mh): Convert cell mat of unequal size els to matrix
+%CELL2MATPAD (tools-mh): cell2mat but for uneq sz cell contents, pads to match
 %   MATOUT = CELL2MATPAD (CELLIN, PADVAL)
 %   functions like cell2mat except elements can be of
 %   variable sizes, and each is padded as necessary with
