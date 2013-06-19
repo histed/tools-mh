@@ -4,12 +4,19 @@ function hash = hash_recurse(inArr)
 %
 %   hash is a 16-element vector of uint8 values
 %
-%   This is slow, don't call it in a loop.
+%   This can be slow, don't call it in a loop.
+%     Two options for calculating MD5:
+%        'CalcMD5' (c, mex, from file exchange); fast but requires install
+%        'java': calls java library from matlab: duplicates memory for java copy but
+%           is installed with every version of matlab
 %
 %  MH - http://github.com/histed/tools-mh
 
+hashMethod = 'CalcMD5';
+%hashMethod = 'Java';
+
 hashLen = 16;  % bytes
-emptyHash = [125  234   54   43   63  172  142    0, ...  % hash_recurse(0)
+emptyHash = [125  234   53   43   63  172  142    0, ...  % chosen at random
              149  106   73   82  163  212  244  116];     % rowvect
 
 if isempty(inArr)
@@ -28,10 +35,16 @@ elseif isnumeric(inArr) || ischar(inArr) || islogical(inArr)
     method = 'MD5';
 
     % create hash
-    x=java.security.MessageDigest.getInstance(method);
-    x.update(inArr);
-    hash = typecast(x.digest,'uint8')';  % row vect
-    return
+    switch lower(hashMethod)
+        case 'java'
+            x=java.security.MessageDigest.getInstance(method);
+            x.update(inArr);
+            hash = typecast(x.digest,'uint8')';  % row vect
+            return
+        case lower('CalcMD5')
+            x = CalcMD5(inArr);
+            hash = uint8(hex2dec(reshape(x',2,[])')');
+    end            
     
 elseif iscell(inArr)
     % hash all its elements
