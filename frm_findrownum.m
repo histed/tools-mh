@@ -134,8 +134,9 @@ for iN = 1:nOut
     nD = sum(desIx);
     if nD < 1
         if ~uo.IgnoreMissing
-            outStr = evalc('columnNames = desFNames, valuesToMatch = desFValues');
-            error('No index matches found: \n %s', outStr);
+            vTM = cellfun(@(x) subGetEitherVal(x,iN), desFValues, 'UniformOutput', false);
+            outStr = evalc('columnNames = desFNames, valuesToMatch = vTM');
+            error('No index matches found in req row %d of %d: \n %s', iN, nOut, outStr);
         else
             rowN(iN) = NaN;
             continue
@@ -152,3 +153,11 @@ for iN = 1:nOut
     end
 end
 %assert(~any(isnan(rowN)));
+
+function outVal = subGetEitherVal(x, iN)
+if iscell(x)
+    outVal = x{iN};
+else
+    outVal = x(iN);
+end
+    
