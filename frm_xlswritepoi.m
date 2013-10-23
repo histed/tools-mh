@@ -3,7 +3,7 @@ function frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr, doMatInCellAsText)
 %
 %   Note - empty elements of rawCell are untouched if excel file exists.   
 %   
-%   Must call xlsjavasetupMH.m first to set up java path w/ POI jar files
+%   Must call frm_javasetup first to set up java path w/ POI jar files
 %
 %   See also FRM_*
 %
@@ -113,6 +113,23 @@ for iR = 1:nRows
 end
 
 %% write file to disk and close
+
+% test to see if it is locked
+tJA = java.io.RandomAccessFile(xlsFileName, 'rw');
+tJC = tJA.getChannel();
+fLock = tJC.tryLock();
+if isempty(fLock)
+    error('File requested to write is locked for writing: close it and try again (%s)', xlsFileName);
+else
+    % 131022: this is a clear race condition but I'm not sure how to write the file and then release the lock:
+    % throws a Bad FD exception below  
+    fLock.release();
+end
+tJA.close();
+
+% turn it into an output stream
 fileOut = java.io.FileOutputStream(xlsFileName);
 wb.write(fileOut);
 fileOut.close();
+
+
