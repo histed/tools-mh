@@ -3,12 +3,17 @@ function hash = hash_recurse(inArr)
 %   hash = HASH_RECURSE(inArr)
 %
 %   hash is a 16-element vector of uint8 values
+%   To turn into a 16-char hex string: 
+%     c = cellstr(dec2hex(hash);
+%     hashStr = lower([c{:}]);
 %
 %   This can be slow, don't call it in a loop.
 %     Two options for calculating MD5:
 %        'CalcMD5' (c, mex, from file exchange); fast but requires install
 %        'java': calls java library from matlab: duplicates memory for java copy but
 %           is installed with every version of matlab
+%
+%  
 %
 %  MH - http://github.com/histed/tools-mh
 
