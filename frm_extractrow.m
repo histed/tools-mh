@@ -8,6 +8,7 @@ function xNd = frm_extractrow(xd, desNs)
 % histed 120531
 
 assert(isvector(desNs), 'desNs must be a vector');
+assert(all(desNs>0), 'Index exceeds frame dimensions (is <= 0)');
 
 
 fNames = fieldnames(xd);
