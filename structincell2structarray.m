@@ -41,10 +41,11 @@ subNames = unique(cat(1,fNameSub{:}));
 for iC=1:length(structCell)
     tExtras = setdiff(addNames, fNameAdd{iC});
     tMissing = fNameSub{iC};
-    tS = structCell{iC};
+    tS = cleanfields(structCell{iC});  % clean in case struct fields are badly named - (come from python e.g.) - many matlab struct fns will fail
     tList = union(tExtras,tMissing);
     for iE = 1:length(tList)
-        tS.(tList{iE}) = fillVal; 
+        tFN = genvarname(tList{iE});
+        tS.(tFN) = fillVal; 
     end
     structCell{iC} = orderfields(tS);
 end
