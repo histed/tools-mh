@@ -9,7 +9,10 @@ function xNd = frm_extractrow(xd, desNs)
 
 assert(isvector(desNs), 'desNs must be a vector');
 assert(all(desNs>0), 'Index exceeds frame dimensions (is <= 0)');
-
+if any(desNs>xd.nRows)
+    error('Asked for a row number (%d) beyond length of frame (%d).', ...
+        max(desNs), xd.nRows);
+end
 
 fNames = fieldnames(xd);
 
