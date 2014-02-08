@@ -11,6 +11,7 @@ function frm_frm2xls(dsT, xlsFileName, sheetNumOrStr)
 
 
 if nargin < 3, sheetNumOrStr = 1; end
+if ischar(dsT), error('First argument must be a frm struct, is char instead: is argument order wrong?'); end
 
 %% massage colnames for output
 fNames = fieldnames(dsT);

@@ -25,22 +25,41 @@ if nargin < 3, textFieldNames = []; end
 
 xc = frm_constants;
 
+% look for filename, completing extension if not supplied
+if ~exist(xlsFileName, 'file')
+    foundXls = exist([xlsFileName '.xls'], 'file');
+    foundXlsx = exist([xlsFileName '.xlsx'], 'file');
+    if foundXls && foundXlsx, 
+        error('extension not supplied and both XLS and XLSX files found: specify');
+    elseif foundXls
+        xlsFileName = [xlsFileName '.xls'];
+    elseif foundXlsx
+        xlsFileName = [xlsFileName '.xlsx'];
+    else
+        error('Input file not found: %s', xlsFilename);
+    end
+end
+       
+        
+    
+
 [raw, typeMat] = frm_xlsreadpoi(xlsFileName, sheet);
 
 % remove header line
-dsT.colNames = raw(1,:);
+colNames = raw(1,:);
 raw = raw(2:end,:);  
 % convert to a struct
-dsT.nCols = length(dsT.colNames);
+dsT.nCols = length(colNames);
 dsT.nRows = size(raw,1);
 
 isSomeNum = any(typeMat(2:end,:) == xc.typeNums.NUMERIC,1);
 isSomeText = any(typeMat(2:end,:) == xc.typeNums.STRING,1);
 emptyIx = cellfun(@isempty, raw(:,:));
 
-removeColsIx = false(size(dsT.colNames));
+removeColsIx = false(size(colNames));
+sanitizedColNames = {};
 for iC=1:dsT.nCols
-    tFN = dsT.colNames{iC};
+    tFN = colNames{iC};
     % sanitize fname
     if isempty(tFN)
         assert(all(emptyIx(:,iC)), 'empty column name but data in rows below');
@@ -86,6 +105,7 @@ for iC=1:dsT.nCols
     end
         
     dsT.(tFN) = tV(:)';
+    sanitizedColNames{iC} = tFN;
 end
 
 % explicit text conversion
@@ -108,5 +128,5 @@ end
         
             
 
-dsT.colNames = dsT.colNames(~removeColsIx);
+dsT.colNames = sanitizedColNames(~removeColsIx);
 dsT.nCols = length(dsT.colNames);

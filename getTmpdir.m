@@ -4,13 +4,13 @@ function tmpdir = getTmpdir
 % histed 11105
 
 if isunix
-    tmpdir = getenv('TMPDIR')
+    tmpdir = getenv('TMPDIR');
     if isempty(tmpdir)
         tmpdir = '/tmp';
     end
 else
     % windows
-    tmpdir = getenv('TEMP')
+    tmpdir = getenv('TEMP');
     if isempty(tmpdir)
         error('Temp directory not found - fix mfile');
     end
