@@ -5,7 +5,8 @@ frmOut.field2 = [1 2 3 4 5 6]+10;
 
 testFileName = fullfile(getTmpdir, 'test-frm');
 if exist(testFileName)
-    rm(testFileName)
+    delete([testFileName '.xls']
+    delete([testFileName '.xlsx']
 end
 
 frm_frm2xls(frmOut, testFileName);

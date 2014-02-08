@@ -26,7 +26,16 @@ end
 %% set up
 xc = frm_constants;
 [xPath, xName, xExt] = fileparts(xlsFileName);
-if isempty(xExt), xExt = '.xlsx'; end
+if isempty(xExt), xExt = '.xls'; end
+switch lower(xExt)
+    case '.xls'
+        isXlsx = false;
+    case '.xlsx'
+        isXlsx = true;
+    otherwise
+        error('Unknown excel file extension: must be XLS or XLSX');
+end
+       
 xlsFileName = fullfile(xPath, [xName xExt]);
 
 if any(xlsFileName == '~')
@@ -38,9 +47,13 @@ if exist(xlsFileName, 'file')
     jFH = java.io.FileInputStream(xlsFileName);
     wb = WorkbookFactory.create(jFH);
 else
-    % create it - always xlsx
-    %wb = org.apache.poi.xssf.usermodel.XSSFWorkbook();
-    wb = org.apache.poi.hssf.usermodel.HSSFWorkbook(); % xls
+    % create it - based on desired type name
+    if isXlsx
+        wb = org.apache.poi.xssf.usermodel.XSSFWorkbook();
+    else
+        % xls
+        wb = org.apache.poi.hssf.usermodel.HSSFWorkbook();
+    end
 end
 
 % debug
