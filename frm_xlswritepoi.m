@@ -127,18 +127,33 @@ end
 
 %% write file to disk and close
 
+isLocked = true;
 % test to see if it is locked
-tJA = java.io.RandomAccessFile(xlsFileName, 'rw');
-tJC = tJA.getChannel();
-fLock = tJC.tryLock();
-if isempty(fLock)
-    error('File requested to write is locked for writing: close it and try again (%s)', xlsFileName);
-else
-    % 131022: this is a clear race condition but I'm not sure how to write the file and then release the lock:
-    % throws a Bad FD exception below  
-    fLock.release();
+while isLocked
+    tJA = java.io.RandomAccessFile(xlsFileName, 'rw');
+    tJC = tJA.getChannel();
+    fLock = tJC.tryLock();
+    if ~isempty(fLock)
+        isLocked = false; 
+        
+        % unlock before write
+        % 131022: this is a clear race condition but I'm not sure how to write the file and then release the lock:
+        % throws a Bad FD exception below
+        fLock.release();  
+        tJA.close();
+        continue
+    else
+        isLocked = true;
+        % new gui method 140206
+        respStr = frm_modallockdlg('Title', 'frm_xlswritepoi: writing file', ...
+            'String', sprintf('Excel file is locked. To save changes, please unlock by closing the file in Excel and press Retry. \n%s', xlsFileName));
+        if strcmp(strtrim(respStr), 'Retry')
+            continue
+        else
+            error('Save aborted (changes lost). Output file is locked for writing: close Excel and try again (%s)', xlsFileName);
+        end
+    end
 end
-tJA.close();
 
 % turn it into an output stream
 fileOut = java.io.FileOutputStream(xlsFileName);
