@@ -65,11 +65,12 @@ for iField = 1:nFields
         switch err.identifier
             case {'MATLAB:catenate:dimensionMismatch', ...
                     'MATLAB:UnableToConvert', ...
+                    'MATLAB:invalidConversion', ...
                     'MATLAB:cellfun:NotAScalarOutput' }
                 % leave as a cell
                 outStruct.(tName) = {inStruct.(tName)};
             otherwise
-                disp(sprintf('Unknown error %s', err.identifier));
+                disp(sprintf('Unknown error %s- check if conversion identifier changed, else bug', err.identifier));
                 % LOOK INTO THIS to see if it's real
                 rethrow(err);
         end
