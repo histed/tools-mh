@@ -36,7 +36,7 @@ if ~exist(xlsFileName, 'file')
     elseif foundXlsx
         xlsFileName = [xlsFileName '.xlsx'];
     else
-        error('Input file not found: %s', xlsFilename);
+        error('Input file not found: %s', xlsFileName);
     end
 end
        
