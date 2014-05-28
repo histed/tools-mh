@@ -1,8 +1,13 @@
-function frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr, doMatInCellAsText)
+function frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr, doMatInCellAsText, emptyMeansSkipCell)
 %FRM_XLSWRITEPOI: use Apache POI Java libraries to write excel files w/ type info etc.
 %
-%   Note - empty elements of rawCell are untouched if excel file exists.   
-%   
+%   frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr, doMatInCellAsText, emptyMeansSkipCell)
+%
+%
+%
+%   NOTE - empty elements of rawCell are untouched if excel file exists, unless emptyMeansSkipCell = False
+%   (should come up with a better way to skip missing values, perhaps a separate bool mat)
+%
 %   Must call frm_javasetup first to set up java path w/ POI jar files
 %
 %   See also FRM_*
@@ -12,8 +17,9 @@ function frm_xlswritepoi(xlsFileName, rawCell, sheetNumOrStr, doMatInCellAsText)
 % notes: To include formulas, they will likely have to be stored as strings and 
 % we will have to pass in the type mat from frm_xlsreadpoi.m
 
-if nargin < 3, sheetNumOrStr = 1; end
-if nargin < 4, doMatInCellAsText = true; end
+if nargin < 3 || isempty(sheetNumOrStr), sheetNumOrStr = 1; end
+if nargin < 4 || isempty(doMatInCellAsText), doMatInCellAsText = true; end
+if nargin < 5 || isempty(emptyMeansSkipCell), emptyMeansSkipCell = true; end
 
 import org.apache.poi.ss.usermodel.*;
 
@@ -97,7 +103,7 @@ for iR = 1:nRows
     
     for iC = 1:nCols
         tVal = rawCell{iR,iC};
-        if isempty(tVal)
+        if emptyMeansSkipCell && isempty(tVal) 
             continue  % no value, so don't make any Java calls this iteration
         else
             tCell = tRow.getCell(iC-1);
@@ -108,9 +114,13 @@ for iR = 1:nRows
             if ischar(tVal)
                 tCell.setCellType(Cell.CELL_TYPE_STRING);
                 tCell.setCellValue(tVal);
-            elseif isnumeric(tVal) && length(tVal) == 1
+            elseif isnumeric(tVal) && length(tVal) == 1  
+                tCell.setCellType(Cell.CELL_TYPE_BLANK); % bug workaround.  
+                % see http://apache-poi.1045710.n5.nabble.com/bug-in-cell-setCellType-Cell-CELL-TYPE-NUMERIC-POI-3-6-td2311592.html
                 tCell.setCellType(Cell.CELL_TYPE_NUMERIC);
                 tCell.setCellValue(tVal);
+            elseif isempty(tVal)
+                tCell.setCellType(Cell.CELL_TYPE_BLANK);
             elseif isnumeric(tVal) && length(tVal) > 1
                 if doMatInCellAsText
                     tCell.setCellType(Cell.CELL_TYPE_STRING)
@@ -125,8 +135,13 @@ for iR = 1:nRows
     end
 end
 
-%% write file to disk and close
+%% evaluate all formulas on write to update cache
+% see http://poi.apache.org/spreadsheet/eval.html
+t0 = wb.getCreationHelper();
+evaluator = t0.createFormulaEvaluator();
+evaluator.evaluateAllFormulaCells(wb);
 
+%% write file to disk and close
 isLocked = true;
 % test to see if it is locked
 while isLocked
