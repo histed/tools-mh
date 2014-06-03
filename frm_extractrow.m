@@ -45,5 +45,5 @@ for iD = 1:nDes
         end
     end
 end
-
+xNd.nRows = nDes;
 
