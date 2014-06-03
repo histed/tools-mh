@@ -9,6 +9,9 @@ function ds = cell2dataset_nosmarts(c, numericColList)
 if nargin < 2, numericColList = ''; end
 
 %% t
+wState = warning;
+warning('off', 'stats:dataset:subsasgn:DefaultValuesAdded');
+
 nCols = size(c,2);
 ds = dataset([]);
 for iC = 1:nCols
@@ -23,6 +26,7 @@ for iC = 1:nCols
 end
 ds.Var1 = [];
 
+warning(wState);
 
 
 
