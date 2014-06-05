@@ -44,6 +44,9 @@ end
     
 
 [raw, typeMat] = frm_xlsreadpoi(xlsFileName, sheet);
+if isempty(raw)
+    error('tools-mh:FrmEmptySheet', sprintf('Empty sheet requested: #%d in file %s', sheet, xlsFileName));
+end
 
 % remove header line
 colNames = raw(1,:);
