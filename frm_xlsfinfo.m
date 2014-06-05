@@ -46,5 +46,13 @@ switch javaClass
         % to fix this we could always match substrings inside the class name - prob not necessary here
 end
 
+%% get sheets
+nSheets = wb.getNumberOfSheets();
+for iS = 0:(nSheets-1)  % java is 0-origin
+    sheetNames{iS+1} = char(wb.getSheetName(iS));
+end
+
 % return outputs
 dsT.fileType = fileType;
+dsT.nSheets = nSheets;
+dsT.sheetNames = sheetNames;
