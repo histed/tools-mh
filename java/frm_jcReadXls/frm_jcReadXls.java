@@ -49,7 +49,7 @@ public class frm_jcReadXls {
 		wb = WorkbookFactory.create(jFH);
 		nSheets = wb.getNumberOfSheets();	
 		if (sheetNum > nSheets) {
-			throw new RuntimeException("Sheet numbers are 0-origin");
+			throw new RuntimeException("Asked for wrong sheet: note sheet numbers are 0-origin");
 		}
 		
 		tSheet = wb.getSheetAt(sheetNum-1);
@@ -105,15 +105,12 @@ public class frm_jcReadXls {
 
 				}
 				outTypeArray[tRowN][tColN] = tCell.getCellType();
+                        }
+                }
+                isReadDone = true;
+        }
 
-			
-		}
-		
-		isReadDone = true;
-	}	
-}
-
-	public Object[] getCellContents() 
+    public Object[] getCellContents() 
 			throws RuntimeException {
 		
 		Object[] outArray;
