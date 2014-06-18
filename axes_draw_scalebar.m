@@ -165,7 +165,9 @@ if ~isempty(uo.TextStyle)
     set(tH, uo.TextStyle{:});
 end
 
+sbH = cat(2,lH, tH);
+set(sbH, 'Clipping', 'off');  % allow scalebar stuff to be outside axes limits
+
 
 % export handles
-sbH = cat(2,lH, tH);
 set(sbH, 'Tag', 'axes_draw_scalebar');
