@@ -5,3 +5,4 @@ function f
 addpath(fullfile(toolsMhRootDir, '../third-git-tracked/matlab_xunit/xunit'));
 
 runtests(fullfile(toolsMhRootDir,'xunit_tests/frm/'))
+runtests(fullfile(toolsMhRootDir,'xunit_tests/misc/'))

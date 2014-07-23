@@ -25,7 +25,7 @@ function X = chop(Xin,n,unit,chopType)
 % Set last sig. fig. rounding to 1 if only two input arguments.
 if nargin<3 || isempty(unit), unit=1; end
 
-if nargin < 4, chopType = 'round'; end
+if nargin < 4 || isempty(chopType), chopType = 'round'; end
 
 % Deal with numbers and numbers <= 0.
 X=abs(Xin) + cast(Xin==0, class(Xin));
