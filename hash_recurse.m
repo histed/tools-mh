@@ -1,11 +1,10 @@
-function hash = hash_recurse(inArr)
+function hash = hash_recurse(inArr, returnStr)
 %HASH_RECURSE (ps-utils): MD5 hash arrays, handles cell/struct recursively
 %   hash = HASH_RECURSE(inArr)
 %
 %   hash is a 16-element vector of uint8 values
-%   To turn into a 16-char hex string: 
-%     c = cellstr(dec2hex(hash);
-%     hashStr = lower([c{:}]);
+%   returnStr: bool (default false): if true, return a 16char hex str.  If false, return 16-byte array
+%
 %
 %   This can be slow, don't call it in a loop.
 %     Two options for calculating MD5:
@@ -17,6 +16,8 @@ function hash = hash_recurse(inArr)
 %
 %  MH - http://github.com/histed/tools-mh
 
+if nargin < 2, returnStr = false; end
+
 hashMethod = 'CalcMD5';
 %hashMethod = 'Java';
 
@@ -26,7 +27,6 @@ emptyHash = [125  234   53   43   63  172  142    0, ...  % chosen at random
 
 if isempty(inArr)
     hash = emptyHash;
-    return
     
 elseif isnumeric(inArr) || ischar(inArr) || islogical(inArr)
     % just hash it
@@ -59,7 +59,6 @@ elseif iscell(inArr)
         h(1:hashLen,iE) = hash_recurse(inArr{iE});
     end
     hash = hash_recurse(h);
-    return
     % one idea for speeding up: take all the elements in the cell array of
     % similar class, concat them, then call hash_recurse only once on them.  
 elseif isstruct(inArr)
@@ -76,3 +75,10 @@ elseif isa(inArr, 'function_handle')
 else
     error('Don''t know how to hash type: %s', class(inArr));
 end
+
+if returnStr
+    c = cellstr(dec2hex(hash));
+    hash = lower([c{:}]);
+end
+
+

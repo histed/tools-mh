@@ -4,7 +4,8 @@ function outD = disk_cache2(opStr, varargin)
 %   diskCache2('get', cacheKeyStr, cacheDir, allowMissing)
 %   diskCache2('set', data, cacheKeyStr, cacheDir, quietStr, doCompress)
 %
-%   You are responsible for creating cacheKeyStr and making sure it's unique
+%   You are responsible for creating cacheKeyStr and making sure it's unique:
+%     e.g. use hash_recurse({arg1,arg2}, true)
 %
 % histed 111005
 
