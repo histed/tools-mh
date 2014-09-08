@@ -28,7 +28,7 @@ emptyHash = [125  234   53   43   63  172  142    0, ...  % chosen at random
 if isempty(inArr)
     hash = emptyHash;
     
-elseif isnumeric(inArr) || ischar(inArr) || islogical(inArr)
+elseif (isreal(inArr) && isnumeric(inArr)) || ischar(inArr) || islogical(inArr)
     % just hash it
     inArr = inArr(:);  % make it a vector
     % convert strings and logicals into uint8 format
@@ -72,6 +72,9 @@ elseif isa(inArr, 'function_handle')
     % function handle is called (as of R14)
     % * we don't handle non-scalar function handles (deprecated in R14)
     hash = hash_recurse(func2str(inArr));
+elseif isnumeric(inArr) && ~isreal(inArr)
+    % complex
+    hash = hash_recurse({real(inArr), imag(inArr)});
 else
     error('Don''t know how to hash type: %s', class(inArr));
 end
