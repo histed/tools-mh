@@ -17,7 +17,14 @@ end
 
 % some error checks
 assert(retval == 0, 'Error running hostname');
-assert(~any(tName == '.'), 'Dots found in hostname: is it a fqdn?');
+if any(tName == '.')
+     firstdot = min(strfind(tName, '.'));
+         if ~isempty(firstdot)
+             tName = tName(1:firstdot-1);
+         end
+end
+assert(~any(tName == '.'), 'dots remaining in hostname - multiple domain parts?');
+
 
 outName = deblank(tName);
 
