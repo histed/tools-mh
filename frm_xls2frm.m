@@ -72,6 +72,7 @@ for iC=1:dsT.nCols
         tFN = sprintf('Column%02d', iC);
     else
         tFN = strrep(tFN, sprintf('\n'), '');
+        tFN = strrep(tFN, sprintf(' '), '');  % remove spaces
         tFN = regexprep(tFN, '[-\(\)]', '_');  % misc punct w/ underscores
         tFN = genvarname(tFN);
         tFN = regexprep(tFN, '_$', '');  % misc punct w/ underscores
