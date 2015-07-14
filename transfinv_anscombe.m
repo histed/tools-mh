@@ -1,11 +1,14 @@
-function origData = transfinv_anscombe(inputTransformedData)
-%TRANSFINV_ANSCOMBE (sacvector2): invert the var-stabilizing Anscombe transf
-%   origData = TRANSFINV_ANSCOMBE(inputTransformedData)
-%
-%   Can be used by PREF_DIR_BOTH_SEQUENTIAL, DECODE_RATE_TO_VECTOR
+function y = transfinv_anscombe(x)
+%TRANSFINV_ANSCOMBE (toolsmh): inverse Anscombe transf
+%   Y = TRANSFINV_ANSCOMBE(X)
 %
 %  MH - http://github.com/histed/tools-mh
 
-origData = sign(inputTransformedData) ...
-           .* ((inputTransformedData.^2) - (3/8));
+y = (x*0.5).^2 - (3/8);
+% preserve sign
+y = y.*sign(x);
 
+% testing
+%xv = linspace(0,10);
+%transfinv_anscombe(transform_anscombe(xv)) - xv
+%transfinv_anscombe(-transform_anscombe(xv)) + xv
