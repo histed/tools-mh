@@ -47,7 +47,7 @@ ebH = errorbar(xm, ym, ySem, 'LineStyle', 'none');
 % output stats
 statS(1).binEdges = binEdges;
 statS(1).nBins = nBins;
-statS.yMean = xm;
+statS.xMean = xm;
 statS.yMean = ym;
 statS.ySem = ySem;
 statS.nPtsPerBin = nPtsPerBin;
