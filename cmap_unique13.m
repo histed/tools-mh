@@ -1,10 +1,11 @@
 function map = cmap_unique13(m)
-%CMAP_POSNEG_RDBU (ca-utils): a colormap to represent pos/neg values
-%   black is the middle value
+% CMAP_UNIQUE13 (tools-mh): colormap with maximally unique colors in RGB space
 %
-%   MH 080501: support rescaling zero point / asymmetric map
+%   map = cmap_unique13(m)
 %
-%$id: cmap_posneg_rdbu.m 200 2006-04-01 00:24:05Z histed $ 
+
+
+% from http://stackoverflow.com/questions/470690/how-to-automatically-generate-n-distinct-colors
 
 if nargin < 1 || isempty(m), m = 13; end
 if m ~= 13, error('Only 13 colors in this colormap'); end
