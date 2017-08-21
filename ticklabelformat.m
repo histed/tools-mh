@@ -1,7 +1,7 @@
 function ticklabelformat(hAxes,axName,format)
 %TICKLABELFORMAT  Sets axis tick labels format
 %
-% TICKLABELFORMAT enables setting the format of the tick labels
+% TICKLABELFORMAT sets the format of the tick labels
 %
 % Syntax:
 %    ticklabelformat(hAxes,axName,format)
@@ -26,13 +26,16 @@ function ticklabelformat(hAxes,axName,format)
 %    It works on Matlab 7+, but use at your own risk!
 %
 % Technical description and more details:
-%    http://UndocumentedMatlab.com/blog/setting-axes-tick-labels-format/
+%    http://UndocumentedMatlab.com/blog/setting-axes-tick-labels-format
 %
 % Bugs and suggestions:
 %    Please send to Yair Altman (altmany at gmail dot com)
 %
 % Change log:
 %    2012-04-18: first version
+%    2014-10-02: updated for R2014b (HG2)
+%    2015-01-05: fix for R2014b (HG2)
+%    2015-06-27: fixes suggested by user Robert for R2014b (HG2)
 %
 % See also: sprintf, gca
 
@@ -45,7 +48,7 @@ function ticklabelformat(hAxes,axName,format)
     end
     
     % Check input args
-    if ~ishandle(hAxes) || ~isa(handle(hAxes),'axes')
+    if ~ishandle(hAxes) || (~isa(handle(hAxes),'axes') && ~isa(handle(hAxes),'matlab.graphics.axis.Axes'))
         error('YMA:TICKLABELFORMAT:hAxes','hAxes input argument must be a valid axes handle');
     elseif ~ischar(axName)
         error('YMA:TICKLABELFORMAT:axName','axName input argument must be a string');
@@ -88,19 +91,51 @@ function install_adjust_ticklbl(hAxes,axName,format)
     % Now install axis tick listeners to adjust tick labels
     % (use undocumented feature for adjustments)
     ha = handle(hAxes);
-    hp = findprop(ha,[axName 'Tick']);
-    hl = handle.listener(ha,hp,'PropertyPostSet',cb);
-    setappdata(hAxes,[axName 'TickListener'],hl)
+    propName = [axName 'Tick'];
+    hp = findprop(ha,propName);
+    try
+        % R2014a or older
+        hl = handle.listener(ha,hp,'PropertyPostSet',cb);
 
-    % Adjust tick labels now
-    %eventData.AffectedObject = hAxes;
-    %adjust_ticklbl([],eventData,axName,format)
-    set(hAxes,[axName 'TickLabelMode'],'manual')
-    set(hAxes,[axName 'TickLabelMode'],'auto')
+        % Adjust tick labels now
+        %eventData.AffectedObject = hAxes;
+        %adjust_ticklbl([],eventData,axName,format)
+        set(hAxes,[axName 'TickLabelMode'],'manual')
+        set(hAxes,[axName 'TickLabelMode'],'auto')
+    catch
+        % R2014b or newer
+        if iscell(cb)
+            cb = @(h,e) feval(cb{1},h,e,cb{2:end});
+        end
+        %hl(1) = addlistener(ha,propName,'PostSet',cb);
+        hl(1) = event.proplistener(ha,hp,'PostSet',cb);
+
+        % *Tick properties don't trigger PostSet events when updated automatically in R2014b - need to use *Lim
+        %addlistener(ha,[axName 'Lim'],'PostSet',cb);
+        hRuler = get(ha,[axName 'Ruler']);
+        %hl(2) = addlistener(hRuler,'MarkedClean',cb);
+        hl(2) = event.listener(hRuler,'MarkedClean',cb);
+
+        % Adjust tick labels now
+        eventData.AffectedObject = hAxes;
+        if ischar(format)
+            adjust_ticklbl([],eventData,axName,format)
+        else
+            hgfeval(format);
+        end
+        set(hAxes,[axName 'TickLabelMode'],'manual')
+        %set(hAxes,[axName 'TickLabelMode'],'auto')  % causes labels not to be updated in R2014b!
+    end
+    setappdata(hAxes,[axName 'TickListener'],hl)
+    %drawnow;
 
 % Default tick labels update callback function (used if user did not specify their own function)
 function adjust_ticklbl(hProp,eventData,axName,format)	%#ok<INUSL>
-    hAxes = eventData.AffectedObject;
+    try
+        hAxes = eventData.AffectedObject;
+    catch
+        hAxes = ancestor(eventData.Source,'Axes');
+    end
     tickValues = get(hAxes,[axName 'Tick']);
     tickLabels = arrayfun(@(x)(sprintf(format,x)),tickValues,'UniformOutput',false);
     set(hAxes,[axName 'TickLabel'],tickLabels)
