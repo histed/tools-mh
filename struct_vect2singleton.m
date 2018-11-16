@@ -37,7 +37,13 @@ for iField = 1:nFields
     elseif ischar(oneFieldVal)
         % special case char arrays: make a cellstr
         %   Note we do not make a big char array first (avoid empty str case)
-        outStruct.(tName) = deblank(cellstr({ inStruct.(tName) }));
+        try
+            outStruct.(tName) = deblank(cellstr({ inStruct.(tName) }));
+        catch me
+            % if conversion failed, reraise with a more informative error
+            error('In converting string to cell.  Field %s. Id: %s. Message: %s', ...
+                tName, me.identifier, me.message);
+        end
         continue
     end
         
